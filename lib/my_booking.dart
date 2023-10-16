@@ -15,6 +15,7 @@ class _MyBookingState extends State<MyBooking> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(
@@ -57,7 +58,6 @@ class _MyBookingState extends State<MyBooking> {
             width: 16.0,
           ),
         ],
-        backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -122,7 +122,7 @@ class _MyBookingState extends State<MyBooking> {
                     ),
                      Row(
                        children: [
-                         Icon(Icons.arrow_forward,color: Colors.red,size: 16,),
+                         const Icon(Icons.arrow_forward,color: Colors.red,size: 16,),
                          Text.rich(
                            TextSpan(
                              children: [

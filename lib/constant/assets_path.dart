@@ -14,5 +14,5 @@ class AssetPath {
 
 
   static const String imgTestVilla = "assets/jpg/test_villa.jpg";
-  static const String imgTestOffer = "assets/jpg/test_offer.jpg";
+  static const String imgTestOffer = "assets/jpg/offer.jpg";
 }

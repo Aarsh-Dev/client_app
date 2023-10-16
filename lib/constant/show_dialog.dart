@@ -19,7 +19,7 @@ class ShowDialogs{
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 50,
+              height: 60,
               child: Image.asset(AssetPath.imgTestOffer,fit: BoxFit.cover,width: Get.width,),
             ),
            Padding(
@@ -38,17 +38,30 @@ class ShowDialogs{
                  const SizedBox(
                    height: 5,
                  ),
-                 TextFormField(
-                   decoration: InputDecoration(
-                     contentPadding: EdgeInsets.symmetric(vertical: 14.0),
-                     enabledBorder: OutlineInputBorder(
-                       borderRadius: BorderRadius.circular(5),
-                     ),
-                     focusedBorder: OutlineInputBorder(
-                       borderRadius: BorderRadius.circular(5),
-                     ),
-                     errorBorder: OutlineInputBorder(
-                       borderRadius: BorderRadius.circular(5),
+                 Container(
+                   height: 40,
+                   width: Get.width,
+                   decoration: BoxDecoration(
+                     borderRadius: BorderRadius.circular(5.0),
+                     border: Border.all(color: Colors.black26)
+                   ),
+                   child: TextFormField(
+                     decoration: InputDecoration(
+                       contentPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                       hintText: "Enter your email",
+                       hintStyle: TextStyle(fontSize: 14),
+                       enabledBorder: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(5),
+                         borderSide: BorderSide.none
+                       ),
+                       focusedBorder: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(5),
+                           borderSide: BorderSide.none
+                       ),
+                       errorBorder: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(5),
+                           borderSide: BorderSide.none
+                       ),
                      ),
                    ),
                  ),
@@ -57,17 +70,19 @@ class ShowDialogs{
                  ),
                  Container(
                    width: Get.width,
-                   padding: EdgeInsets.symmetric(vertical: 5.0),
+                   padding: const EdgeInsets.symmetric(vertical: 6.0),
                    decoration: BoxDecoration(
                        color: Colors.blue,
                        borderRadius: BorderRadius.circular(5.0)
                    ),
                    child: Center(
-                     child: Text("Send me offer",style: AppTextStyle.textStyleBold10.copyWith(color: Colors.white),),
+                     child: Text("Send me offer",style: AppTextStyle.textStyleBold11.copyWith(color: Colors.white),),
                    ),
                  ),
-                 TextButton(onPressed: (){},
-                     child: Text("No thanks, i dont want any exclusive offers",style: TextStyle( decoration: TextDecoration.underline,),))
+                 TextButton(onPressed: (){
+                   Get.back();
+                 },
+                     child: const Text("No thanks, i dont want any exclusive offers",style: TextStyle( decoration: TextDecoration.underline,color: Colors.grey),))
                ],
              ),
            ),
