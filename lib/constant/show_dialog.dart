@@ -23,7 +23,7 @@ class ShowDialogs{
               child: Image.asset(AssetPath.imgTestOffer,fit: BoxFit.cover,width: Get.width,),
             ),
            Padding(
-             padding: EdgeInsets.symmetric(horizontal: 8.0),
+             padding: const EdgeInsets.symmetric(horizontal: 8.0),
              child: Column(
                crossAxisAlignment: CrossAxisAlignment.start,
                children: [
