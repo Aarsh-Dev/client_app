@@ -1,8 +1,11 @@
 import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/constant/assets_path.dart';
+import 'package:client_app/controller/tours_controller.dart';
 import 'package:client_app/my_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../more_activities_page.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -12,6 +15,8 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
+
+  ToursController toursController = Get.find();
 
 
   @override
@@ -46,17 +51,29 @@ class _HomeTabState extends State<HomeTab> {
             onTap: (){
           Get.to(const MyBooking());
         }),
-        topButton(imagePath: AssetPath.imgPlush,imgWidth: 20,title: "More Activities"),
-        topButton(imagePath: AssetPath.imgCutlery,imgWidth:20,title: "Restaurants"),
-        topButton(imagePath: AssetPath.dealImg,imgWidth : 20,title: "Deals"),
+        topButton(
+            imagePath: AssetPath.imgPlush,
+            imgWidth: 20,
+            title: "More Activities",
+          onTap: (){
+              toursController.getToursSearch();
+              Get.to(const MoreActivitiesPage());
+          }
+        ),
+        topButton(imagePath: AssetPath.imgCutlery,imgWidth:20,title: "Restaurants",onTap: (){
+
+        }),
+        topButton(imagePath: AssetPath.dealImg,imgWidth : 20,title: "Deals",onTap: (){}),
         // topButton(imagePath: AssetPath.imgReview,imgWidth : 20,title: "Experience"),
       ],
     );
   }
 
-  topButton({required String imagePath,required String title,double? imgWidth,Function()? onTap}){
+  topButton({required String imagePath,required String title,double? imgWidth, required Function() onTap}){
     return InkWell(
-      onTap:onTap,
+      onTap:(){
+        onTap();
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 6.0,horizontal: 12.0),
         child: Column(

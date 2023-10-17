@@ -1,6 +1,6 @@
 import 'package:client_app/controller/home_controller.dart';
+import 'package:client_app/controller/tours_controller.dart';
 import 'package:get/get.dart';
-import 'package:get/get_instance/src/bindings_interface.dart';
 
 class BindingController extends Bindings{
   @override
@@ -8,6 +8,7 @@ class BindingController extends Bindings{
     // TODO: implement dependencies
 
   Get.lazyPut<HomeController>(() => HomeController(),fenix: true);
+  Get.lazyPut<ToursController>(() => ToursController(),fenix: true);
 
 
 
