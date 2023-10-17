@@ -1,5 +1,7 @@
 import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
+import 'package:client_app/controller/tours_controller.dart';
+import 'package:client_app/more_activities_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +13,10 @@ class MyBooking extends StatefulWidget {
 }
 
 class _MyBookingState extends State<MyBooking> {
+
+  ToursController toursController = Get.find();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,15 +129,17 @@ class _MyBookingState extends State<MyBooking> {
                      Row(
                        children: [
                          const Icon(Icons.arrow_forward,color: Colors.red,size: 16,),
-                         Text.rich(
-                           TextSpan(
-                             children: [
-                               TextSpan(text: '09:00',style: AppTextStyle.textStyleBold10),
-                               TextSpan(
-                                 text: ' - Pick Up From Bali Airport To Royal Hotel',
-                                   style: AppTextStyle.textStyleRegular10,
-                               ),
-                             ],
+                         Flexible(
+                           child: Text.rich(
+                             TextSpan(
+                               children: [
+                                 TextSpan(text: '09:00',style: AppTextStyle.textStyleBold10),
+                                 TextSpan(
+                                   text: ' - Pick Up From Bali Airport To Royal Hotel',
+                                     style: AppTextStyle.textStyleRegular10,
+                                 ),
+                               ],
+                             ),
                            ),
                          ),
                        ],
@@ -139,9 +147,11 @@ class _MyBookingState extends State<MyBooking> {
                     const Divider(),
                     Row(
                       children: [
-                        const CircleAvatar(child: Icon(Icons.person)),
+                        const CircleAvatar(
+                            backgroundColor: Color(0xffF1F3F4),
+                            child: Icon(Icons.person,color: Color(0xffCAC5C5),)),
                         const SizedBox(
-                          width: 5.0,
+                          width: 8.0,
                         ),
                         Expanded(
                           child: Column(
@@ -152,74 +162,77 @@ class _MyBookingState extends State<MyBooking> {
                               const SizedBox(
                                 height: 5.0,
                               ),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(text: 'Name : ',style: AppTextStyle.textStyleBold10),
-                                    TextSpan(
-                                      text: 'Manoj Shah',
-                                      style: AppTextStyle.textStyleRegular10,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              widgetKeyValue(key:"Name",value:"Manoj Shah"),
                               const SizedBox(
                                 height: 5.0,
                               ),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(text: 'Mobile No : ',style: AppTextStyle.textStyleBold10),
-                                    TextSpan(
-                                      text: '1234567890',
-                                      style: AppTextStyle.textStyleRegular10,
-                                    ),
-                                  ],
-                                ),
+                              widgetKeyValue(key:"Mobile No",value:"1234567890"),
+                              const SizedBox(
+                                height: 5.0,
                               ),
+                              widgetKeyValue(key:"Driver Location",value:"Kuta"),
                             ],
                           ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  TextSpan(text: 'Car No : ',style: AppTextStyle.textStyleBold10),
-                                  TextSpan(
-                                    text: 'MH 0987',
-                                    style: AppTextStyle.textStyleRegular10,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  TextSpan(text: 'Type : ',style: AppTextStyle.textStyleBold10),
-                                  TextSpan(
-                                    text: 'PVT',
-                                    style: AppTextStyle.textStyleRegular10,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                        // Column(
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Text.rich(
+                        //       TextSpan(
+                        //         children: [
+                        //           TextSpan(text: 'Car No : ',style: AppTextStyle.textStyleBold10),
+                        //           TextSpan(
+                        //             text: 'MH 0987',
+                        //             style: AppTextStyle.textStyleRegular10,
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //     const SizedBox(
+                        //       height: 5.0,
+                        //     ),
+                        //     Text.rich(
+                        //       TextSpan(
+                        //         children: [
+                        //           TextSpan(text: 'Type : ',style: AppTextStyle.textStyleBold10),
+                        //           TextSpan(
+                        //             text: 'PVT',
+                        //             style: AppTextStyle.textStyleRegular10,
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                     const Divider(),
                   Row(
                     children: [
                       const Icon(Icons.add,color: Colors.red,size: 18,),
-                      Text("Additional Info",style: AppTextStyle.textStyleBold12,)
+                      Text("Additional Info",style: AppTextStyle.textStyleBold12.copyWith(color: Colors.black),)
                     ],
                   ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    index == 1 ?
+                        Text("Benoa Beach With Uluwatu Sunset Tour - Private",style: AppTextStyle.textStyleRegular12,)
+                        : InkWell(
+                      onTap: (){
+                        toursController.getToursSearch();
+                        Get.to(const MoreActivitiesPage());
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(5.0)
+                        ),
+                        child: Text("Add tour".toUpperCase(),style: AppTextStyle.textStyleBold13,),
+                      ),
+                    ),
                     Align(
                       alignment: Alignment.centerRight,
                       child: Container(
@@ -248,4 +261,18 @@ class _MyBookingState extends State<MyBooking> {
       },
     );
   }
+
+
+  Widget widgetKeyValue({key,value}){
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text("$key",style: AppTextStyle.textStyleBold10),
+        Text(" : ",style: AppTextStyle.textStyleRegular10),
+        Text("$value",style: AppTextStyle.textStyleRegular10)
+      ],
+    );
+  }
+
+
 }

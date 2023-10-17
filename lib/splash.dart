@@ -42,7 +42,7 @@ class _SplashState extends State<Splash> {
 
   timer(){
     Future.delayed(const Duration(seconds: 3),() {
-      Get.to(const Home());
+      Get.off(const Home());
     },);
   }
 

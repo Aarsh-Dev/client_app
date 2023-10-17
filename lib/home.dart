@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: AppColor.bgAppBar,
+        backgroundColor: AppColor.themeColor,
         automaticallyImplyLeading: false,
         title: const Text("Agent Logo"),
       ),
@@ -53,6 +53,8 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: Obx(()=>BottomNavigationBar(
         unselectedItemColor: AppColor.themeColor,
         selectedItemColor: Colors.red,
+        selectedLabelStyle: AppTextStyle.textStyleRegular12,
+        unselectedLabelStyle:AppTextStyle.textStyleRegular12,
         // unselectedLabelStyle: TextStyle(letterSpacing:0.5),
         currentIndex: controller.position.value,
         items: [

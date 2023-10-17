@@ -1,11 +1,13 @@
+import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/constant/assets_path.dart';
+import 'package:client_app/constant/method.dart';
 import 'package:client_app/controller/tours_controller.dart';
 import 'package:client_app/my_booking.dart';
+import 'package:client_app/more_activities_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../more_activities_page.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -14,9 +16,21 @@ class HomeTab extends StatefulWidget {
   State<HomeTab> createState() => _HomeTabState();
 }
 
-class _HomeTabState extends State<HomeTab> {
+class _HomeTabState extends State<HomeTab>with SingleTickerProviderStateMixin{
 
   ToursController toursController = Get.find();
+
+  // late TabController tabController;
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   tabController = TabController(length: 4,vsync: this);
+  //   tabController.addListener(() {
+  //
+  //   })
+  // }
 
 
   @override
@@ -24,14 +38,15 @@ class _HomeTabState extends State<HomeTab> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        widgetTopItems(),
+        // widgetTopItems(),
+        widgetDemo(),
         Expanded(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                widgetToday(),
                 widgetBestOffer(),
-                widgetTrendingRightNow(),
               ],
             ),
           ),
@@ -43,6 +58,7 @@ class _HomeTabState extends State<HomeTab> {
 
   Widget widgetTopItems(){
     return  Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         topButton(
             imagePath: AssetPath.imgEdit,
@@ -58,6 +74,7 @@ class _HomeTabState extends State<HomeTab> {
           onTap: (){
               toursController.getToursSearch();
               Get.to(const MoreActivitiesPage());
+              // Get.to(const MoreActivitiesPage());
           }
         ),
         topButton(imagePath: AssetPath.imgCutlery,imgWidth:20,title: "Restaurants",onTap: (){
@@ -69,13 +86,58 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
-  topButton({required String imagePath,required String title,double? imgWidth, required Function() onTap}){
+
+  Widget widgetDemo(){
+    return Container(
+      height: 50,
+      decoration: const BoxDecoration(
+      ),
+      child: TabBar(
+        controller: TabController(length: 4,vsync: this),
+        indicatorColor: Colors.transparent,
+        labelStyle: const TextStyle(fontSize: 8,color: Colors.black,fontWeight: FontWeight.w600),
+        labelColor: Colors.black,
+        unselectedLabelStyle: const TextStyle(fontSize: 8,color: Colors.black,fontWeight: FontWeight.w600),
+        onTap: (value){
+          if(value == 0){
+            Get.to(MyBooking());
+          }else if(value == 1){
+            toursController.getToursSearch();
+            Get.to(MoreActivitiesPage());
+          }
+        },
+        tabs: [
+          Tab(
+            text: "My Booking",
+            icon: Image.asset(AssetPath.imgEdit,width: 20),
+          ),
+          Tab(
+            text: "More Activities",
+            icon: Image.asset(AssetPath.imgPlush,width: 20),
+          ),
+          Tab(
+            text: "Restaurants",
+            icon: Image.asset(AssetPath.imgCutlery,width: 20),
+          ),
+          Tab(
+            text: "Deals",
+            icon: Image.asset(AssetPath.dealImg,width: 20),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget topButton({required String imagePath,required String title,double? imgWidth, required Function() onTap}){
     return InkWell(
       onTap:(){
         onTap();
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 6.0,horizontal: 12.0),
+        margin: const EdgeInsets.symmetric(vertical: 6.0,horizontal: 0.0),
+        constraints: BoxConstraints(
+          // minWidth:60,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -93,25 +155,69 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
+  Widget widgetTitle({text}){
+    return Text("$text",style: AppTextStyle.textStyleBold14.copyWith(color: Colors.red));
+  }
+
+  Widget widgetToday(){
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 16.0),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          widgetTitle(text:"Today Program"),
+          const SizedBox(
+            height: 10.0,
+          ),
+          Card(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+                side: const BorderSide(color: Colors.transparent)
+            ),
+            clipBehavior: Clip.antiAlias,
+            margin: EdgeInsets.zero,
+            child: ExpansionTile(
+              iconColor: Colors.red,
+              collapsedIconColor: Colors.red,
+              collapsedBackgroundColor: AppColor.themeColor,
+              backgroundColor: AppColor.themeColor,
+              title: Text(
+                getDateInDDMMMYY(date:DateTime.now()),
+                style: AppTextStyle.textStyleRegular12
+                    .copyWith(color: Colors.white),
+              ),
+              children: [
+
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget widgetBestOffer(){
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 14.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       decoration: const BoxDecoration(
         color: Colors.white,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(
-            child: Text("Best Offer",style: AppTextStyle.textStyleBold14.copyWith(color: Colors.red),),
-          ),
+          widgetTitle(text:"Offer"),
           const SizedBox(
             height: 10.0,
           ),
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            // padding: const EdgeInsets.symmetric(horizontal: 16.0),
             itemCount: 6,
             itemBuilder: (context, index) {
               return Container(

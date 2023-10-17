@@ -23,7 +23,7 @@ class _HelpLineTabState extends State<HelpLineTab> {
       width: Get.width,
       padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 16.0),
       decoration: const BoxDecoration(
-        color: Colors.purple
+        color: Colors.white
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,11 +31,11 @@ class _HelpLineTabState extends State<HelpLineTab> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.phone,color: Colors.white,size: 22,),
+              const Icon(Icons.phone,color: Colors.black,size: 22,),
               const SizedBox(
                 width: 10.0,
               ),
-              Text("Helpline",style: AppTextStyle.textStyleBold16.copyWith(color: Colors.white),),
+              Text("Helpline",style: AppTextStyle.textStyleBold16.copyWith(color: Colors.black),),
             ],
           ),
           const SizedBox(
@@ -85,12 +85,13 @@ class _HelpLineTabState extends State<HelpLineTab> {
       padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 8.0),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(5.0)
+        borderRadius: BorderRadius.circular(5.0),
+        border: Border.all(color: Colors.black26)
       ),
        child: Row(
          children: [
            Expanded(child: Text("$text",style: AppTextStyle.textStyleBold10.copyWith(color: Colors.black),)),
-           const Icon(Icons.arrow_right_sharp,color: Colors.purple,size: 20,),
+           const Icon(Icons.arrow_right_sharp,color: Colors.black,size: 20,),
          ],
        ),
     );

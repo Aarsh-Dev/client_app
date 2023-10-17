@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,15 +9,23 @@ class ToursController extends GetxController{
 
 
   RxList<dynamic> toursList = <dynamic>[].obs;
-
   RxList showActivityIndexList = [].obs;
   RxList showOptionIndexList = [].obs;
 
 
   Rxn<int> optionalGroupValue = Rxn<int>();
 
+  RxInt currentIndex = 0.obs;
+
 
   RxBool isToursLoading = false.obs;
+
+
+  RxList<Tab> tabList = <Tab>[
+    const Tab(child: Text("Description")),
+     const Tab(child: Text("Itinerary"),),
+    const Tab(child: Text("Do & Don't"),),
+  ].obs;
 
 
 
@@ -58,9 +66,9 @@ class ToursController extends GetxController{
           Map data = responseData["Data"];
           toursList.value = data["TourList"];
           for (int index = 0; index < toursList.length; index++) {
+            toursList[index]['SelectDate'] = "";
             if (toursList[index]['TourDetails'][0]['TourUpgrade'].isNotEmpty) {
-              int i =
-                  toursList[index]['TourDetails'][0]['TourUpgrade'].length - 1;
+              int i = toursList[index]['TourDetails'][0]['TourUpgrade'].length - 1;
               int p=int.parse(toursList[index]['TourDetails'][0]['Price'].toString().replaceAll("USD", "").trim());
               toursList[index]['TotalPrice'] =p.toString();
               toursList[index]['TourDetails'][0]['count']=0;
@@ -86,7 +94,6 @@ class ToursController extends GetxController{
                 ['is_selected_activities'] = false;
               }
             } else {
-              toursList[index]['IncludePrice'] = toursList[index]['TourDetails'][0]['TotAdultCost'];
               // if (transferController.dateList.isNotEmpty) {
               //   toursList[index]['select_tour_date'] =
               //   transferController.dateList[0];
