@@ -16,21 +16,21 @@ class HomeTab extends StatefulWidget {
   State<HomeTab> createState() => _HomeTabState();
 }
 
-class _HomeTabState extends State<HomeTab>with SingleTickerProviderStateMixin{
+class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
 
   ToursController toursController = Get.find();
 
-  // late TabController tabController;
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   tabController = TabController(length: 4,vsync: this);
-  //   tabController.addListener(() {
-  //
-  //   })
-  // }
+  late TabController tabController;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    tabController = TabController(length: 4,vsync: this);
+    tabController.addListener(() {
+
+    });
+  }
 
 
   @override
@@ -89,15 +89,18 @@ class _HomeTabState extends State<HomeTab>with SingleTickerProviderStateMixin{
 
   Widget widgetDemo(){
     return Container(
-      height: 50,
+      height: 65,
+      padding: EdgeInsets.symmetric(vertical: 8),
       decoration: const BoxDecoration(
       ),
       child: TabBar(
-        controller: TabController(length: 4,vsync: this),
+        controller: tabController,
         indicatorColor: Colors.transparent,
-        labelStyle: const TextStyle(fontSize: 8,color: Colors.black,fontWeight: FontWeight.w600),
+        labelStyle: const TextStyle(fontSize: 12,color: Colors.black,fontWeight: FontWeight.w600),
         labelColor: Colors.black,
-        unselectedLabelStyle: const TextStyle(fontSize: 8,color: Colors.black,fontWeight: FontWeight.w600),
+        isScrollable: true,
+
+        unselectedLabelStyle: const TextStyle(fontSize: 12,color: Colors.black,fontWeight: FontWeight.w600),
         onTap: (value){
           if(value == 0){
             Get.to(MyBooking());
@@ -156,12 +159,12 @@ class _HomeTabState extends State<HomeTab>with SingleTickerProviderStateMixin{
   }
 
   Widget widgetTitle({text}){
-    return Text("$text",style: AppTextStyle.textStyleBold14.copyWith(color: Colors.red));
+    return Text("$text".toUpperCase(),style: AppTextStyle.textStyleBold14.copyWith(color: Colors.red,letterSpacing: 1));
   }
 
   Widget widgetToday(){
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 16.0,horizontal: 16.0),
       decoration: const BoxDecoration(
         color: Colors.white,
       ),
@@ -169,7 +172,7 @@ class _HomeTabState extends State<HomeTab>with SingleTickerProviderStateMixin{
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          widgetTitle(text:"Today Program"),
+          widgetTitle(text:"Your Today Program"),
           const SizedBox(
             height: 10.0,
           ),
@@ -192,7 +195,52 @@ class _HomeTabState extends State<HomeTab>with SingleTickerProviderStateMixin{
                     .copyWith(color: Colors.white),
               ),
               children: [
+                Container(
+                  width: Get.width,
+                  color: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 8.0,
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.arrow_forward,color: Colors.red,size: 16,),
+                          Flexible(
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(text: '09:00',style: AppTextStyle.textStyleBold10),
+                                  TextSpan(
+                                    text: ' - Pick Up From Bali Airport To Royal Hotel',
+                                    style: AppTextStyle.textStyleRegular10,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Divider(),
+                      Row(
+                        children: [
+                          const CircleAvatar(
+                              backgroundColor: Color(0xffF1F3F4),
+                              child: Icon(Icons.person,color: Color(0xffCAC5C5),)),
+                          const SizedBox(
+                            width: 8.0,
+                          ),
 
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -210,7 +258,7 @@ class _HomeTabState extends State<HomeTab>with SingleTickerProviderStateMixin{
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          widgetTitle(text:"Offer"),
+          widgetTitle(text:"Offers"),
           const SizedBox(
             height: 10.0,
           ),
