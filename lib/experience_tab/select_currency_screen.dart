@@ -54,14 +54,18 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
               ),
               Expanded(
                 child:Obx(() =>  ListView.builder(
-                    itemCount: controller.currencies.length,
+                    itemCount:controller.filteredCurrencies.isEmpty? controller.currencies.length:controller.filteredCurrencies.length,
                     itemBuilder: (context, index) {
                       return Card(
                         clipBehavior: Clip.antiAlias,
                         margin: const EdgeInsets.symmetric(vertical: 6.0),
                         child: InkWell(
                           onTap: () {
-                            controller.updateSelectedCurrency(controller.currencies[index].shortName);
+                            if(controller.filteredCurrencies.isEmpty){
+                              controller.updateSelectedCurrency(controller.currencies[index].shortName);
+                            }else{
+                              controller.updateSelectedCurrency(controller.filteredCurrencies[index].shortName);
+                            }
                             Navigator.pop(context);
                           },
                           child: Padding(
@@ -72,7 +76,7 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
                             child: Row(
                               children: [
                                 Image.network(
-                                  "https://www.countryflagicons.com/SHINY/64/${controller.currencies[index].shortName.substring(0, 2)}.png",
+                            controller.filteredCurrencies.isEmpty?"https://www.countryflagicons.com/SHINY/64/${controller.currencies[index].shortName.substring(0, 2)}.png":"https://www.countryflagicons.com/SHINY/64/${controller.filteredCurrencies[index].shortName.substring(0, 2)}.png",
                                   width: 30,
                                   height: 30,
                                   errorBuilder: (context, error, stackTrace) =>
@@ -86,7 +90,7 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: Text(
-                                    controller.currencies[index].name,
+                                    controller.filteredCurrencies.isEmpty?controller.currencies[index].name:controller.filteredCurrencies[index].name,
                                     style: AppTextStyle.textStyleBold14,
                                   ),
                                 ),
@@ -96,7 +100,7 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
                                 Expanded(
                                   flex: 0,
                                   child: Text(
-                                      controller.currencies[index].shortName,
+                                      controller.filteredCurrencies.isEmpty?controller.currencies[index].shortName:controller.filteredCurrencies[index].shortName,
                                       style: AppTextStyle.textStyleBold14
                                   ),
                                 ),

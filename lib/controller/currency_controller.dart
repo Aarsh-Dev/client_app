@@ -47,7 +47,7 @@ class CurrencyController extends GetxController{
         Iterable<String> keys = responseData.keys;
 
         for (final key in keys) {
-          currencies.add(Currency(name: key, shortName: responseData['$key']));
+          currencies.add(Currency(name: responseData['$key'], shortName:key ));
         }
 
         debugPrint("Length=>${currencies.length}");
@@ -80,6 +80,8 @@ class CurrencyController extends GetxController{
           !currency.shortName
               .toLowerCase()
               .startsWith(searchQuery.toLowerCase()));
+    }else{
+      filteredCurrencies.clear();
     }
   }
 
