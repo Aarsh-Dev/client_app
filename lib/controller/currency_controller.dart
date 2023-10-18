@@ -29,8 +29,8 @@ class CurrencyController extends GetxController{
   RxString selectedToCurrency = "USD".obs;
 
 
-  List<Currency> currencies =[];
-  List<Currency> filteredCurrencies =[];
+  RxList<Currency> currencies =<Currency>[].obs;
+  RxList<Currency> filteredCurrencies =<Currency>[].obs;
 
    getCurrencies() async {
      isCurrencyLoading.value = true;
@@ -68,6 +68,18 @@ class CurrencyController extends GetxController{
       selectedToCurrency.value = currency;
     } else {
       selectedFromCurrency.value = currency;
+    }
+  }
+
+  updateFilteredCurrencies(String searchQuery) {
+    filteredCurrencies.clear();
+    filteredCurrencies.addAll(currencies);
+    if (searchQuery.isNotEmpty) {
+      filteredCurrencies.removeWhere((currency) =>
+      !currency.name.toLowerCase().contains(searchQuery.toLowerCase()) &&
+          !currency.shortName
+              .toLowerCase()
+              .startsWith(searchQuery.toLowerCase()));
     }
   }
 

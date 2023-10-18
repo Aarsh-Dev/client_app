@@ -1,3 +1,4 @@
+import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/controller/currency_controller.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +29,9 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Select currency'),
-        forceMaterialTransparency: true,
+        elevation: 0,
+        title: const Text("Select Currency"),
+        backgroundColor: AppColor.themeColor,
       ),
       body: SafeArea(
         child: Container(
@@ -44,15 +46,14 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
                 ),
                 hintText: 'Search currency',
                 onChanged: (value) {
-                  // Provider.of<CurrencyDataProvider>(context, listen: false)
-                  //     .updateFilteredCurrencies(value);
+                  controller.updateFilteredCurrencies(value);
                 },
               ),
               const SizedBox(
                 height: 10.0,
               ),
               Expanded(
-                child: ListView.builder(
+                child:Obx(() =>  ListView.builder(
                     itemCount: controller.currencies.length,
                     itemBuilder: (context, index) {
                       return Card(
@@ -76,25 +77,27 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
                                   height: 30,
                                   errorBuilder: (context, error, stackTrace) =>
                                   const Icon(
-                                      size: 30,
+                                      size: 20,
                                       Icons.currency_exchange_sharp),
                                 ),
                                 const SizedBox(
                                   width: 10.0,
                                 ),
                                 Expanded(
+                                  flex: 1,
                                   child: Text(
                                     controller.currencies[index].name,
-                                    style: AppTextStyle.textStyleBold12,
+                                    style: AppTextStyle.textStyleBold14,
                                   ),
                                 ),
                                 const SizedBox(
                                   width: 10.0,
                                 ),
-                                Flexible(
+                                Expanded(
+                                  flex: 0,
                                   child: Text(
-                                    controller.currencies[index].shortName,
-                                    style: AppTextStyle.textStyleBold12
+                                      controller.currencies[index].shortName,
+                                      style: AppTextStyle.textStyleBold14
                                   ),
                                 ),
                               ],
@@ -102,7 +105,7 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
                           ),
                         ),
                       );
-                    }),
+                    })),
               ),
             ],
           ),
