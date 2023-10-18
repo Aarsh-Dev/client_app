@@ -84,6 +84,8 @@ class _HomeScreenState extends State<CurrencyTab> {
                             IconButton.filled(
                               onPressed: () {
                                 controller.swapFromAndTo();
+                                controller.selectedFromTextEditController.clear();
+                                controller.selectedToTextEditController.clear();
                               },
                               icon: const Icon(Icons.swap_vert),
                             ),
