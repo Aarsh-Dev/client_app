@@ -44,7 +44,7 @@ class CurrencyDataInputForm extends StatelessWidget {
                 height: 35,
                 errorBuilder: (context, error, stackTrace) => const Icon(
                   Icons.currency_exchange,
-                  size: 35,
+                  size: 20,
                 ),
               ),
               const SizedBox(
