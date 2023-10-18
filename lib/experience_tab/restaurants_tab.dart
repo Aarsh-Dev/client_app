@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
+import 'package:client_app/controller/restaurants_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,11 +13,33 @@ class RestaurantsTab extends StatefulWidget {
 }
 
 class _RestaurantsTabState extends State<RestaurantsTab> {
+
+  RestaurantsController controller = Get.find();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.getMealsType();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: widgetRestaurantsList(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 10.0,
+          ),
+          lunchMealTypeDropDown(controller.textEditingController,"Meal"),
+          const SizedBox(
+            height: 10.0,
+          ),
+          widgetRestaurantsList(),
+        ],
+      ),
     );
   }
 
@@ -71,6 +94,47 @@ class _RestaurantsTabState extends State<RestaurantsTab> {
         ],
       );
     },);
+  }
+
+  //Todo Lunch Meal Type
+  Widget lunchMealTypeDropDown(TextEditingController mealTypeController, String hint) {
+    return Obx(() => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: AppColor.hintColor, width: 1)),
+        child: DropdownButton<dynamic>(
+          hint: Text(
+            mealTypeController.text.isEmpty ? hint : mealTypeController.text,
+            style: mealTypeController.text.isEmpty
+                ? AppTextStyle.textStyleRegular12
+                .copyWith(color: AppColor.hintColor)
+                : AppTextStyle.textStyleRegular12,
+          ),
+          icon: const Icon(Icons.keyboard_arrow_down_rounded),
+          iconSize: 24,
+          elevation: 16,
+          style: const TextStyle(color: Colors.black),
+          underline: const SizedBox.shrink(),
+          onChanged: (value) {
+            mealTypeController.text = value['MealType'].toString();
+            setState(() {
+
+            });
+          },
+          isExpanded: true,
+          borderRadius: BorderRadius.circular(10),
+          items: controller.lunchMealTypeList
+              .map<DropdownMenuItem<dynamic>>((dynamic value) {
+            return DropdownMenuItem<dynamic>(
+              value: value,
+              child: Text(
+                value['MealType'].toString(),
+                style: AppTextStyle.textStyleRegular12,
+              ),
+            );
+          }).toList(),
+        )));
   }
 
 }
