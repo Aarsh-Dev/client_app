@@ -84,7 +84,6 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
                                   width: 10.0,
                                 ),
                                 Expanded(
-                                  flex: 1,
                                   child: Text(
                                     controller.currencies[index].name,
                                     style: AppTextStyle.textStyleBold14,
@@ -93,10 +92,9 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
                                 const SizedBox(
                                   width: 10.0,
                                 ),
-                                Expanded(
-                                  flex: 0,
+                                Flexible(
                                   child: Text(
-                                      controller.currencies[index].shortName,
+                                      controller.currencies[index].shortName,overflow: TextOverflow.clip,
                                       style: AppTextStyle.textStyleBold14
                                   ),
                                 ),
