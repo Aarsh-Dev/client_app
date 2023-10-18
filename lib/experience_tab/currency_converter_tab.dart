@@ -58,13 +58,8 @@ class _HomeScreenState extends State<CurrencyTab> {
                           isInputEnabled: true,
                           selectedCurrency: controller.selectedFromCurrency.value,
                           onCurrencySelection: () {
-                            // Provider.of<CurrencySelectionProvider>(context,
-                            //     listen: false)
-                            //     .updatingCurrencyType = CurrencyInputType.from;
-                            // Navigator.pushNamed(
-                            //   context,
-                            //   SelectCurrencyScreen.route,
-                            // );
+                            controller.updatingCurrencyType.value="From";
+
                             Get.to(const SelectCurrencyScreen());
                           },
                           onInputChanged: (val) {
@@ -111,13 +106,8 @@ class _HomeScreenState extends State<CurrencyTab> {
                           isInputEnabled: false,
                           selectedCurrency: controller.selectedToCurrency.value,
                           onCurrencySelection: () {
-                            // Provider.of<CurrencySelectionProvider>(context,
-                            //     listen: false)
-                            //     .updatingCurrencyType = CurrencyInputType.to;
-                            // Navigator.pushNamed(
-                            //   context,
-                            //   SelectCurrencyScreen.route,
-                            // );
+                            controller.updatingCurrencyType.value="To";
+
                             Get.to(const SelectCurrencyScreen());
                           },
                         ),
