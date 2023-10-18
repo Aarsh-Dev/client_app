@@ -14,19 +14,16 @@ class SelectCurrencyScreen extends StatefulWidget {
 }
 
 class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
-
-
   CurrencyController controller = Get.find();
 
   @override
   void initState() {
     super.initState();
-
+    controller.filteredCurrencies.clear();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -53,18 +50,22 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
                 height: 10.0,
               ),
               Expanded(
-                child:Obx(() =>  ListView.builder(
-                    itemCount:controller.filteredCurrencies.isEmpty? controller.currencies.length:controller.filteredCurrencies.length,
+                child: Obx(() => ListView.builder(
+                    itemCount: controller.filteredCurrencies.isEmpty
+                        ? controller.currencies.length
+                        : controller.filteredCurrencies.length,
                     itemBuilder: (context, index) {
                       return Card(
                         clipBehavior: Clip.antiAlias,
                         margin: const EdgeInsets.symmetric(vertical: 6.0),
                         child: InkWell(
                           onTap: () {
-                            if(controller.filteredCurrencies.isEmpty){
-                              controller.updateSelectedCurrency(controller.currencies[index].shortName);
-                            }else{
-                              controller.updateSelectedCurrency(controller.filteredCurrencies[index].shortName);
+                            if (controller.filteredCurrencies.isEmpty) {
+                              controller.updateSelectedCurrency(
+                                  controller.currencies[index].shortName);
+                            } else {
+                              controller.updateSelectedCurrency(controller
+                                  .filteredCurrencies[index].shortName);
                             }
                             controller.filteredCurrencies.clear();
                             Navigator.pop(context);
@@ -77,13 +78,15 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
                             child: Row(
                               children: [
                                 Image.network(
-                            controller.filteredCurrencies.isEmpty?"https://www.countryflagicons.com/SHINY/64/${controller.currencies[index].shortName.substring(0, 2)}.png":"https://www.countryflagicons.com/SHINY/64/${controller.filteredCurrencies[index].shortName.substring(0, 2)}.png",
+                                  controller.filteredCurrencies.isEmpty
+                                      ? "https://www.countryflagicons.com/SHINY/64/${controller.currencies[index].shortName.substring(0, 2)}.png"
+                                      : "https://www.countryflagicons.com/SHINY/64/${controller.filteredCurrencies[index].shortName.substring(0, 2)}.png",
                                   width: 30,
                                   height: 30,
                                   errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(
-                                      size: 20,
-                                      Icons.currency_exchange_sharp),
+                                      const Icon(
+                                          size: 20,
+                                          Icons.currency_exchange_sharp),
                                 ),
                                 const SizedBox(
                                   width: 10.0,
@@ -91,7 +94,10 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: Text(
-                                    controller.filteredCurrencies.isEmpty?controller.currencies[index].name:controller.filteredCurrencies[index].name,
+                                    controller.filteredCurrencies.isEmpty
+                                        ? controller.currencies[index].name
+                                        : controller
+                                            .filteredCurrencies[index].name,
                                     style: AppTextStyle.textStyleBold14,
                                   ),
                                 ),
@@ -101,9 +107,12 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
                                 Expanded(
                                   flex: 0,
                                   child: Text(
-                                      controller.filteredCurrencies.isEmpty?controller.currencies[index].shortName:controller.filteredCurrencies[index].shortName,
-                                      style: AppTextStyle.textStyleBold14
-                                  ),
+                                      controller.filteredCurrencies.isEmpty
+                                          ? controller
+                                              .currencies[index].shortName
+                                          : controller.filteredCurrencies[index]
+                                              .shortName,
+                                      style: AppTextStyle.textStyleBold14),
                                 ),
                               ],
                             ),
