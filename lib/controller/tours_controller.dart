@@ -24,7 +24,7 @@ class ToursController extends GetxController{
   RxList<Tab> tabList = <Tab>[
     const Tab(child: Text("Description")),
      const Tab(child: Text("Itinerary"),),
-    const Tab(child: Text("Do & Don't"),),
+    const Tab(child: Text("Do’s & Dont’s"),),
   ].obs;
 
 

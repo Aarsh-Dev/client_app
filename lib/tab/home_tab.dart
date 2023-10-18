@@ -3,8 +3,10 @@ import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/constant/assets_path.dart';
 import 'package:client_app/constant/method.dart';
 import 'package:client_app/controller/tours_controller.dart';
+import 'package:client_app/page/deals_page.dart';
+import 'package:client_app/page/experience_page.dart';
 import 'package:client_app/my_booking.dart';
-import 'package:client_app/more_activities_page.dart';
+import 'package:client_app/page/more_activities_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -90,7 +92,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
   Widget widgetDemo(){
     return Container(
       height: 65,
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       decoration: const BoxDecoration(
       ),
       child: TabBar(
@@ -99,14 +101,17 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
         labelStyle: const TextStyle(fontSize: 12,color: Colors.black,fontWeight: FontWeight.w600),
         labelColor: Colors.black,
         isScrollable: true,
-
         unselectedLabelStyle: const TextStyle(fontSize: 12,color: Colors.black,fontWeight: FontWeight.w600),
         onTap: (value){
           if(value == 0){
-            Get.to(MyBooking());
+            Get.to(const MyBooking());
           }else if(value == 1){
             toursController.getToursSearch();
-            Get.to(MoreActivitiesPage());
+            Get.to(const MoreActivitiesPage());
+          }else if(value == 2){
+            Get.to(const ExperiencePage());
+          }else{
+            Get.to(const DealsPage());
           }
         },
         tabs: [
@@ -119,7 +124,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
             icon: Image.asset(AssetPath.imgPlush,width: 20),
           ),
           Tab(
-            text: "Restaurants",
+            text: "Experience",
             icon: Image.asset(AssetPath.imgCutlery,width: 20),
           ),
           Tab(
@@ -189,10 +194,18 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
               collapsedIconColor: Colors.red,
               collapsedBackgroundColor: AppColor.themeColor,
               backgroundColor: AppColor.themeColor,
-              title: Text(
-                getDateInDDMMMYY(date:DateTime.now()),
-                style: AppTextStyle.textStyleRegular12
-                    .copyWith(color: Colors.white),
+              title: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Arrival To Bali",style:AppTextStyle.textStyleRegular12
+                      .copyWith(color: Colors.white),),
+                  Text(
+                    getDateInDDMMMYY(date:DateTime.now()),
+                    style: AppTextStyle.textStyleRegular12
+                        .copyWith(color: Colors.white),
+                  ),
+                ],
               ),
               children: [
                 Container(
@@ -209,31 +222,109 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
                         children: [
                           const Icon(Icons.arrow_forward,color: Colors.red,size: 16,),
                           Flexible(
-                            child: Text.rich(
-                              TextSpan(
-                                children: [
-                                  TextSpan(text: '09:00',style: AppTextStyle.textStyleBold10),
-                                  TextSpan(
-                                    text: ' - Pick Up From Bali Airport To Royal Hotel',
-                                    style: AppTextStyle.textStyleRegular10,
-                                  ),
-                                ],
-                              ),
-                            ),
+                            child:widgetKeyValue(key: "09:00",value: "Pick Up From Bali Airport To Royal Hotel"),
                           ),
                         ],
                       ),
+                      // const Divider(),
+                      // Row(
+                      //   children: [
+                      //     const CircleAvatar(
+                      //         backgroundColor: Color(0xffF1F3F4),
+                      //         child: Icon(Icons.person,color: Color(0xffCAC5C5),)),
+                      //     const SizedBox(
+                      //       width: 8.0,
+                      //     ),
+                      //     Expanded(
+                      //       child: Column(
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         mainAxisAlignment: MainAxisAlignment.center,
+                      //         children: [
+                      //           Text("Driver Details",style: AppTextStyle.textStyleBold12,),
+                      //           const SizedBox(
+                      //             height: 5.0,
+                      //           ),
+                      //           widgetKeyValue(key:"Name",value:"Manoj Shah"),
+                      //           const SizedBox(
+                      //             height: 5.0,
+                      //           ),
+                      //           widgetKeyValue(key:"Mobile No",value:"1234567890"),
+                      //           const SizedBox(
+                      //             height: 5.0,
+                      //           ),
+                      //           widgetKeyValue(key:"Driver Location",value:"Kuta"),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     // Column(
+                      //     //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //     //   mainAxisAlignment: MainAxisAlignment.center,
+                      //     //   children: [
+                      //     //     Text.rich(
+                      //     //       TextSpan(
+                      //     //         children: [
+                      //     //           TextSpan(text: 'Car No : ',style: AppTextStyle.textStyleBold10),
+                      //     //           TextSpan(
+                      //     //             text: 'MH 0987',
+                      //     //             style: AppTextStyle.textStyleRegular10,
+                      //     //           ),
+                      //     //         ],
+                      //     //       ),
+                      //     //     ),
+                      //     //     const SizedBox(
+                      //     //       height: 5.0,
+                      //     //     ),
+                      //     //     Text.rich(
+                      //     //       TextSpan(
+                      //     //         children: [
+                      //     //           TextSpan(text: 'Type : ',style: AppTextStyle.textStyleBold10),
+                      //     //           TextSpan(
+                      //     //             text: 'PVT',
+                      //     //             style: AppTextStyle.textStyleRegular10,
+                      //     //           ),
+                      //     //         ],
+                      //     //       ),
+                      //     //     ),
+                      //     //   ],
+                      //     // ),
+                      //   ],
+                      // ),
                       const Divider(),
                       Row(
                         children: [
-                          const CircleAvatar(
-                              backgroundColor: Color(0xffF1F3F4),
-                              child: Icon(Icons.person,color: Color(0xffCAC5C5),)),
-                          const SizedBox(
-                            width: 8.0,
-                          ),
-
+                          const Icon(Icons.add,color: Colors.red,size: 18,),
+                          Text("Additional Info",style: AppTextStyle.textStyleBold12.copyWith(color: Colors.black),)
                         ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      // index == 1 ?
+                      // Text("Benoa Beach With Uluwatu Sunset Tour - Private",style: AppTextStyle.textStyleRegular12,)
+                      //     : InkWell(
+                      //   onTap: (){
+                      //     toursController.getToursSearch();
+                      //     Get.to(const MoreActivitiesPage());
+                      //   },
+                      //   child: Container(
+                      //     padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
+                      //     decoration: BoxDecoration(
+                      //         color: Colors.red,
+                      //         borderRadius: BorderRadius.circular(5.0)
+                      //     ),
+                      //     child: Text("Add tour".toUpperCase(),style: AppTextStyle.textStyleBold13,),
+                      //   ),
+                      // ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(5.0)
+                          ),
+                          child: Text("Feedback".toUpperCase(),style: AppTextStyle.textStyleBold13,),
+                        ),
                       ),
                       const SizedBox(
                         height: 10,
@@ -322,6 +413,17 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
           ),
         ],
       ),
+    );
+  }
+
+  Widget widgetKeyValue({key,value}){
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text("$key",style: AppTextStyle.textStyleBold10),
+        Text(" : ",style: AppTextStyle.textStyleRegular10),
+        Text("$value",style: AppTextStyle.textStyleRegular10)
+      ],
     );
   }
 

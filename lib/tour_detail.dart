@@ -139,7 +139,7 @@ class _TourDetailState extends State<TourDetail> {
                   ],
                 )),
             CustomButton(
-              buttonText: 'Add',
+              buttonText: 'Select Tour',
               color: Colors.red,
               height: 40,
               width: Get.width * 0.40,

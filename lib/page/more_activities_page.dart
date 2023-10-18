@@ -146,7 +146,6 @@ class _MoreActivitiesPageState extends State<MoreActivitiesPage> {
                         child: Text( toursController.toursList[index]
                         ['TourTitle'] ??
                             "",
-
                           maxLines: 5,
                           style: AppTextStyle.textStyleBold16
                               .copyWith(

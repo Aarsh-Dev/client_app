@@ -1,7 +1,7 @@
 import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/controller/tours_controller.dart';
-import 'package:client_app/more_activities_page.dart';
+import 'package:client_app/page/more_activities_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -130,17 +130,7 @@ class _MyBookingState extends State<MyBooking> {
                        children: [
                          const Icon(Icons.arrow_forward,color: Colors.red,size: 16,),
                          Flexible(
-                           child: Text.rich(
-                             TextSpan(
-                               children: [
-                                 TextSpan(text: '09:00',style: AppTextStyle.textStyleBold10),
-                                 TextSpan(
-                                   text: ' - Pick Up From Bali Airport To Royal Hotel',
-                                     style: AppTextStyle.textStyleRegular10,
-                                 ),
-                               ],
-                             ),
-                           ),
+                           child:widgetKeyValue(key: "09:00",value: "Pick Up From Bali Airport To Royal Hotel"),
                          ),
                        ],
                      ),
@@ -174,37 +164,67 @@ class _MyBookingState extends State<MyBooking> {
                             ],
                           ),
                         ),
-                        // Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     Text.rich(
-                        //       TextSpan(
-                        //         children: [
-                        //           TextSpan(text: 'Car No : ',style: AppTextStyle.textStyleBold10),
-                        //           TextSpan(
-                        //             text: 'MH 0987',
-                        //             style: AppTextStyle.textStyleRegular10,
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //     const SizedBox(
-                        //       height: 5.0,
-                        //     ),
-                        //     Text.rich(
-                        //       TextSpan(
-                        //         children: [
-                        //           TextSpan(text: 'Type : ',style: AppTextStyle.textStyleBold10),
-                        //           TextSpan(
-                        //             text: 'PVT',
-                        //             style: AppTextStyle.textStyleRegular10,
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(text: 'Car No : ',style: AppTextStyle.textStyleBold10),
+                                  TextSpan(
+                                    text: 'MH 0987',
+                                    style: AppTextStyle.textStyleRegular10,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(text: 'Type : ',style: AppTextStyle.textStyleBold10),
+                                  TextSpan(
+                                    text: 'PVT',
+                                    style: AppTextStyle.textStyleRegular10,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        const CircleAvatar(
+                            backgroundColor: Color(0xffF1F3F4),
+                            child: Icon(Icons.person,color: Color(0xffCAC5C5),)),
+                        const SizedBox(
+                          width: 8.0,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Guide Details",style: AppTextStyle.textStyleBold12,),
+                              const SizedBox(
+                                height: 5.0,
+                              ),
+                              widgetKeyValue(key:"Name",value:"Manoj Shah"),
+                              const SizedBox(
+                                height: 5.0,
+                              ),
+                              widgetKeyValue(key:"Mobile No",value:"1234567890"),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                     const Divider(),
