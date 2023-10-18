@@ -60,10 +60,8 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
                         margin: const EdgeInsets.symmetric(vertical: 6.0),
                         child: InkWell(
                           onTap: () {
-                            // Provider.of<CurrencySelectionProvider>(context,
-                            //     listen: false)
-                            //     .updateSelectedCurrency(currency.shortName);
-                            // Navigator.pop(context);
+                            controller.updateSelectedCurrency(controller.currencies[index].shortName);
+                            Navigator.pop(context);
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
