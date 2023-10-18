@@ -22,7 +22,7 @@ class _NightLifeTabState extends State<NightLifeTab> {
   }
 
   Widget widgetNightsLifeList(){
-    return ListView.builder(
+    return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: 3,
@@ -70,7 +70,9 @@ class _NightLifeTabState extends State<NightLifeTab> {
           ),
         ],
       );
-    },);
+    },separatorBuilder: (context, index) {
+      return Container(width: Get.width,color: Colors.grey.withOpacity(0.1),height: 1,margin: EdgeInsets.only(bottom: 16),);
+    });
   }
 
 }

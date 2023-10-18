@@ -45,7 +45,7 @@ class _RestaurantsTabState extends State<RestaurantsTab> {
 
 
   Widget widgetRestaurantsList(){
-    return ListView.builder(
+    return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: 3,
@@ -93,6 +93,8 @@ class _RestaurantsTabState extends State<RestaurantsTab> {
           ),
         ],
       );
+    },separatorBuilder: (context, index) {
+      return Container(width: Get.width,color: Colors.grey.withOpacity(0.1),height: 1,margin: EdgeInsets.only(bottom: 16),);
     },);
   }
 
