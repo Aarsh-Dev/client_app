@@ -36,7 +36,7 @@ class _HomeScreenState extends State<CurrencyTab> {
           color: Colors.white,
           child: Center(
             child: Obx(()=>
-            controller.isCurrencyLoading.value? const CustomLoader():Column(
+            controller.isCurrencyLoading.value || controller.isExchangeRateLoading.value? const CustomLoader():Column(
               children: <Widget>[
                 Card(
                   shape: RoundedRectangleBorder(
@@ -65,6 +65,9 @@ class _HomeScreenState extends State<CurrencyTab> {
                                 controller.amount.value,
                                 controller.selectedFromCurrency.value,
                                 controller.selectedToCurrency.value);
+                            setState(() {
+
+                            });
                           },
                         ),
                         Row(
@@ -97,10 +100,10 @@ class _HomeScreenState extends State<CurrencyTab> {
                         ),
                         CurrencyDataInputForm(
                           title: 'Converted Amount',
-                          val: controller.convertAnyToAny(
-                              controller.amount.value,
-                              controller.selectedFromCurrency.value,
-                              controller.selectedToCurrency.value),
+                          // val: controller.convertAnyToAny(
+                          //     controller.amount.value,
+                          //     controller.selectedFromCurrency.value,
+                          //     controller.selectedToCurrency.value),
                           textEditingController:controller.selectedToTextEditController,
                           isInputEnabled: false,
                           selectedCurrency: controller.selectedToCurrency.value,
@@ -115,15 +118,6 @@ class _HomeScreenState extends State<CurrencyTab> {
                   ),
                 ),
                 const SizedBox(height: 20.0),
-                const Text("Exchange Rates"),
-              Text(
-                // '1 ${controller.selectedFromCurrency.value} = /*${utils.convertAnyToAny(exchangeRates, "1", selections.selectedFromCurrency, selections.selectedToCurrency)}*/ ${selections.selectedToCurrency}',
-                '1 ${controller.selectedFromCurrency.value} =  ${controller.selectedToCurrency.value}',
-                style: const TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
               ],
             ))
           ),
