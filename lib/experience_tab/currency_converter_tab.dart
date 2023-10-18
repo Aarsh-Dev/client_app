@@ -33,19 +33,14 @@ class _HomeScreenState extends State<CurrencyTab> {
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.only(top: 30.0),
-          decoration: BoxDecoration(
-              gradient: RadialGradient(
-                colors: [Colors.white30, Colors.blue.shade50],
-                center: Alignment.topLeft,
-                radius: 1.0,
-              )),
+          color: Colors.white,
           child: Center(
             child: Obx(()=>
             controller.isCurrencyLoading.value? const CustomLoader():Column(
               children: <Widget>[
                 Card(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(4.0),
                   ),
                   elevation: 3.0,
                   margin: const EdgeInsets.symmetric(horizontal: 16.0),
