@@ -23,8 +23,6 @@ class _HomeScreenState extends State<CurrencyTab> {
   @override
   void initState() {
     super.initState();
-    controller.getCurrencies();
-    controller.getUSDToAnyExchangeRates();
   }
 
   @override

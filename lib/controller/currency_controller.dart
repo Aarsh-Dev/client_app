@@ -39,6 +39,12 @@ class CurrencyController extends GetxController{
   RxList<Currency> filteredCurrencies =<Currency>[].obs;
 
 
+  @override
+  void onInit() {
+    super.onInit();
+    getCurrencies();
+    getUSDToAnyExchangeRates();
+  }
 
   getUSDToAnyExchangeRates() async {
     isCurrencyLoading.value = true;
