@@ -143,7 +143,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 6.0,horizontal: 0.0),
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           // minWidth:60,
         ),
         child: Column(

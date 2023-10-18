@@ -16,6 +16,7 @@ class CurrencyController extends GetxController{
   RxString amount = '1'.obs;
   RxDouble selectedPrice = 0.00.obs;
   RxString inputValues = "0".obs;
+  RxString updatingCurrencyType = "To".obs;
 
   RxBool isCurrencyLoading = false.obs;
 
@@ -62,6 +63,13 @@ class CurrencyController extends GetxController{
     }
   }
 
+  updateSelectedCurrency(String currency) {
+    if (updatingCurrencyType.value == "To") {
+      selectedToCurrency.value = currency;
+    } else {
+      selectedFromCurrency.value = currency;
+    }
+  }
 
 
 }
