@@ -79,9 +79,7 @@ class _HomeScreenState extends State<CurrencyTab> {
                             ),
                             IconButton.filled(
                               onPressed: () {
-                                // Provider.of<CurrencySelectionProvider>(context,
-                                //     listen: false)
-                                //     .swapFromAndTo();
+                                controller.swapFromAndTo();
                               },
                               icon: const Icon(Icons.swap_vert),
                             ),

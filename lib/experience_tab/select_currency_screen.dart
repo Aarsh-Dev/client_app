@@ -66,6 +66,7 @@ class _SelectCurrencyScreenState extends State<SelectCurrencyScreen> {
                             }else{
                               controller.updateSelectedCurrency(controller.filteredCurrencies[index].shortName);
                             }
+                            controller.filteredCurrencies.clear();
                             Navigator.pop(context);
                           },
                           child: Padding(

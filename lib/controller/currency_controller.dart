@@ -85,5 +85,11 @@ class CurrencyController extends GetxController{
     }
   }
 
+  swapFromAndTo() {
+    final temp = selectedFromCurrency.value;
+    selectedFromCurrency.value = selectedToCurrency.value;
+    selectedToCurrency.value = temp;
+  }
+
 
 }
