@@ -1,5 +1,5 @@
 
-import 'package:client_app/constant/utils.dart';
+
 import 'package:client_app/controller/currency_controller.dart';
 import 'package:client_app/experience_tab/select_currency_screen.dart';
 import 'package:client_app/widget/currency_data_input_form.dart';
@@ -24,6 +24,7 @@ class _HomeScreenState extends State<CurrencyTab> {
   void initState() {
     super.initState();
     controller.getCurrencies();
+    controller.getUSDToAnyExchangeRates();
   }
 
   @override
@@ -96,11 +97,10 @@ class _HomeScreenState extends State<CurrencyTab> {
                         ),
                         CurrencyDataInputForm(
                           title: 'Converted Amount',
-                          // val: convertAnyToAny(
-                          //     exchangeRates,
-                          //     controller.amount.value,
-                          //     controller.selectedFromCurrency.value,
-                          //     controller.selectedToCurrency.value),
+                          val: controller.convertAnyToAny(
+                              controller.amount.value,
+                              controller.selectedFromCurrency.value,
+                              controller.selectedToCurrency.value),
                           isInputEnabled: false,
                           selectedCurrency: controller.selectedToCurrency.value,
                           onCurrencySelection: () {

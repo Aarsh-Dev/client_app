@@ -84,7 +84,7 @@ class _ExperiencePageState extends State<ExperiencePage>  with SingleTickerProvi
             icon: Image.asset(AssetPath.imgShopping,width: 20),
           ),
           Tab(
-            text: "Currency",
+            text: "Currency Converter",
             icon: Image.asset(AssetPath.imgCurrency,width: 20),
           ),
         ],

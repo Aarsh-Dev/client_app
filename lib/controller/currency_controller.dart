@@ -22,6 +22,8 @@ class CurrencyController extends GetxController{
 
   List<String> inputList = [];
 
+  Map<String, double> exchangeRates = Map.fromIterable(const Iterable.empty());
+
 
   RxList<String> currencyList = <String>['RUPEE',"USD"].obs;
 
@@ -31,6 +33,34 @@ class CurrencyController extends GetxController{
 
   RxList<Currency> currencies =<Currency>[].obs;
   RxList<Currency> filteredCurrencies =<Currency>[].obs;
+
+
+
+  getUSDToAnyExchangeRates() async {
+    isCurrencyLoading.value = true;
+    try {
+      var response = await http.get(Uri.https("openexchangerates.org", '/api/latest.json', {
+        'prettyprint': 'false',
+        'show_alternative': 'false',
+        'show_inactive': 'false',
+        'app_id': '409da7029b974a68b6dae1e9ea405ec4'
+      }));
+      if (response.statusCode == 200) {
+
+        var responseData = jsonDecode(response.body);
+
+        exchangeRates=responseData['rates'];
+
+        isCurrencyLoading.value = false;
+      } else {
+        debugPrint("Something went wrong");
+        isCurrencyLoading.value = false;
+      }
+    } catch(e){
+      debugPrint(e.toString());
+      isCurrencyLoading.value = false;
+    }
+  }
 
    getCurrencies() async {
      isCurrencyLoading.value = true;
@@ -92,4 +122,15 @@ class CurrencyController extends GetxController{
   }
 
 
+  String convertAnyToAny(String amount, String fromCurrency, String toCurrency) {
+    if(exchangeRates.isEmpty){
+      return "";
+    }
+    var doubleVal = double.tryParse(amount);
+    if (doubleVal == null) return "";
+    String output =
+    (doubleVal / exchangeRates[fromCurrency]! * exchangeRates[toCurrency]!)
+        .toStringAsFixed(5);
+    return output;
+  }
 }
