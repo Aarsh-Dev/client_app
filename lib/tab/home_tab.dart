@@ -92,7 +92,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
   Widget widgetDemo(){
     return Container(
       height: 65,
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      // padding: const EdgeInsets.symmetric(vertical: 8),
       decoration: const BoxDecoration(
       ),
       child: TabBar(
@@ -129,7 +129,10 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
           ),
           Tab(
             text: "Deals",
-            icon: Image.asset(AssetPath.dealImg,width: 20),
+            icon: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Image.asset(AssetPath.dealImg,width: 20),
+            ),
           ),
         ],
       ),

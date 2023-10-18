@@ -59,7 +59,7 @@ class _ExperiencePageState extends State<ExperiencePage>  with SingleTickerProvi
   Widget widgetTopBar(){
     return Container(
       height: 65,
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      // padding: const EdgeInsets.symmetric(vertical: 8),
       decoration: const BoxDecoration(
       ),
       child: TabBar(
