@@ -177,7 +177,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          widgetTitle(text:"Your Today Program"),
+          widgetTitle(text:"Today’s Program"),
           const SizedBox(
             height: 10.0,
           ),
