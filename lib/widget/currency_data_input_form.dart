@@ -9,12 +9,14 @@ class CurrencyDataInputForm extends StatelessWidget {
     required this.title,
     required this.isInputEnabled,
     this.onInputChanged,
+    required this.textEditingController,
   });
 
   final String title;
   final bool isInputEnabled;
   final String selectedCurrency;
   final String? val;
+  final TextEditingController textEditingController;
   final void Function() onCurrencySelection;
   final void Function(String)? onInputChanged;
 
@@ -77,6 +79,7 @@ class CurrencyDataInputForm extends StatelessWidget {
                   ),
                   child: TextFormField(
                     key: ValueKey(val),
+                    controller: textEditingController,
                     initialValue: val,
                     keyboardType: TextInputType.number,
                     readOnly: !isInputEnabled,

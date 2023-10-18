@@ -52,6 +52,7 @@ class _HomeScreenState extends State<CurrencyTab> {
                         CurrencyDataInputForm(
                           title: 'Amount',
                           isInputEnabled: true,
+                          textEditingController: controller.selectedFromTextEditController,
                           selectedCurrency: controller.selectedFromCurrency.value,
                           onCurrencySelection: () {
                             controller.updatingCurrencyType.value="From";
@@ -60,6 +61,10 @@ class _HomeScreenState extends State<CurrencyTab> {
                           },
                           onInputChanged: (val) {
                             controller.amount.value = val;
+                            controller.selectedToTextEditController.text= controller.convertAnyToAny(
+                                controller.amount.value,
+                                controller.selectedFromCurrency.value,
+                                controller.selectedToCurrency.value);
                           },
                         ),
                         Row(
@@ -96,6 +101,7 @@ class _HomeScreenState extends State<CurrencyTab> {
                               controller.amount.value,
                               controller.selectedFromCurrency.value,
                               controller.selectedToCurrency.value),
+                          textEditingController:controller.selectedToTextEditController,
                           isInputEnabled: false,
                           selectedCurrency: controller.selectedToCurrency.value,
                           onCurrencySelection: () {

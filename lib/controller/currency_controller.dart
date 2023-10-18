@@ -18,6 +18,9 @@ class CurrencyController extends GetxController{
   RxString inputValues = "0".obs;
   RxString updatingCurrencyType = "To".obs;
 
+  TextEditingController selectedFromTextEditController=TextEditingController();
+  TextEditingController selectedToTextEditController=TextEditingController();
+
   RxBool isCurrencyLoading = false.obs;
 
   List<String> inputList = [];
