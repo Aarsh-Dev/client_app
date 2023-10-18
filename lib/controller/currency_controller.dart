@@ -32,6 +32,8 @@ class CurrencyController extends GetxController{
   RxList<Currency> currencies =<Currency>[].obs;
   RxList<Currency> filteredCurrencies =<Currency>[].obs;
 
+  Map<String, double> exchangeRates = Map.fromIterable(const Iterable.empty());
+
    getCurrencies() async {
      isCurrencyLoading.value = true;
     try {
@@ -60,6 +62,28 @@ class CurrencyController extends GetxController{
     } catch(e){
       debugPrint(e.toString());
       isCurrencyLoading.value = false;
+    }
+  }
+
+
+   getUSDToAnyExchangeRates() async {
+    try {
+      var response = await http.get(Uri.https("openexchangerates.org", "/api/latest.json", {
+        'prettyprint': 'false',
+        'show_alternative': 'false',
+        'show_inactive': 'false',
+        'app_id': 'a64906f3a2964ab7b471a777a30e07d8'
+      }));
+      if (response.statusCode == 200) {
+        var responseData = jsonDecode(response.body);
+        debugPrint(response.body);
+        // return ApiResult.success(
+        //     RatesModel.fromJson(jsonDecode(response.body)));
+      } else {
+        debugPrint("Something went wrong");
+      }
+    } catch(e){
+      debugPrint(e.toString());
     }
   }
 

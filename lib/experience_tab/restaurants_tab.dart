@@ -64,7 +64,7 @@ class _RestaurantsTabState extends State<RestaurantsTab> {
             subtitle:  Text("Generate Promo code",style:AppTextStyle.textStyleBold10.copyWith(color: Colors.orange),),
             trailing: IconButton(
               onPressed: (){},
-              icon: const Icon(Icons.map_rounded,color: Colors.blue,),
+              icon: const Icon(Icons.map_rounded,color: AppColor.bgAppBar,),
             ),
             contentPadding: EdgeInsets.zero,
           ),

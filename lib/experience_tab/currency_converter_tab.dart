@@ -24,6 +24,7 @@ class _HomeScreenState extends State<CurrencyTab> {
   void initState() {
     super.initState();
     controller.getCurrencies();
+    controller.getUSDToAnyExchangeRates();
   }
 
   @override
@@ -96,11 +97,11 @@ class _HomeScreenState extends State<CurrencyTab> {
                         ),
                         CurrencyDataInputForm(
                           title: 'Converted Amount',
-                          val: convertAnyToAny(
-                              exchangeRates,
-                              controller.amount.value,
-                              controller.selectedFromCurrency.value,
-                              controller.selectedToCurrency.value),
+                          // val: convertAnyToAny(
+                          //     exchangeRates,
+                          //     controller.amount.value,
+                          //     controller.selectedFromCurrency.value,
+                          //     controller.selectedToCurrency.value),
                           isInputEnabled: false,
                           selectedCurrency: controller.selectedToCurrency.value,
                           onCurrencySelection: () {
