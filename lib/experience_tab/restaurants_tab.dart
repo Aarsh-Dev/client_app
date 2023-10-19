@@ -38,7 +38,7 @@ class _RestaurantsTabState extends State<RestaurantsTab> {
           const SizedBox(
             height: 10.0,
           ),
-          lunchMealTypeDropDown(controller.textEditingController,"Meal"),
+          lunchMealTypeDropDown(controller.textEditingController,"Restaurant Type"),
           const SizedBox(
             height: 10.0,
           ),

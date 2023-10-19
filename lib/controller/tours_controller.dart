@@ -21,6 +21,9 @@ class ToursController extends GetxController{
   RxBool isToursLoading = false.obs;
 
 
+  RxList restaurantType = ["Indian", "Indonesia","Seafood"].obs;
+  RxList selectRestaurantType = [].obs;
+
   RxList<Tab> tabList = <Tab>[
     const Tab(child: Text("Description")),
      const Tab(child: Text("Itinerary"),),

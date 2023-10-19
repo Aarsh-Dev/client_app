@@ -13,11 +13,6 @@ class BindingController extends Bindings{
   Get.lazyPut<ToursController>(() => ToursController(),fenix: true);
   Get.lazyPut<CurrencyController>(() => CurrencyController(),fenix: true);
   Get.lazyPut<RestaurantsController>(() => RestaurantsController(),fenix: true);
-
-
-
-
-
   }
 
 
