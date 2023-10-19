@@ -29,9 +29,6 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
     // TODO: implement initState
     super.initState();
     tabController = TabController(length: 4,vsync: this);
-    tabController.addListener(() {
-
-    });
   }
 
 
@@ -41,7 +38,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // widgetTopItems(),
-        widgetDemo(),
+        widgetTopBar(),
         Expanded(
           child: SingleChildScrollView(
             child: Column(
@@ -89,7 +86,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
   }
 
 
-  Widget widgetDemo(){
+  Widget widgetTopBar(){
     return Container(
       height: 65,
       // padding: const EdgeInsets.symmetric(vertical: 8),
@@ -98,10 +95,11 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
       child: TabBar(
         controller: tabController,
         indicatorColor: Colors.transparent,
-        labelStyle: const TextStyle(fontSize: 12,color: Colors.black,fontWeight: FontWeight.w600),
+        labelStyle:AppTextStyle.textStyleBold10.copyWith(color: Colors.black),
         labelColor: Colors.black,
         isScrollable: true,
-        unselectedLabelStyle: const TextStyle(fontSize: 12,color: Colors.black,fontWeight: FontWeight.w600),
+        unselectedLabelStyle: AppTextStyle.textStyleBold10.copyWith(color: Colors.black),
+        unselectedLabelColor:Colors.black,
         onTap: (value){
           if(value == 0){
             Get.to(const MyBooking());

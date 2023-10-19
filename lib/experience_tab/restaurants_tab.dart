@@ -1,7 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
+import 'package:client_app/constant/show_bottom_sheets.dart';
 import 'package:client_app/controller/restaurants_controller.dart';
+import 'package:client_app/map/map_page.dart';
+import 'package:client_app/widget/custom_loader.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +19,7 @@ class RestaurantsTab extends StatefulWidget {
 class _RestaurantsTabState extends State<RestaurantsTab> {
 
   RestaurantsController controller = Get.find();
+
 
   @override
   void initState() {
@@ -84,9 +89,11 @@ class _RestaurantsTabState extends State<RestaurantsTab> {
               style: AppTextStyle.textStyleBold16
                   .copyWith(
                   color: AppColor.themeColor),),
-            subtitle:  Text("Generate Promo code",style:AppTextStyle.textStyleBold10.copyWith(color: Colors.orange),),
+            subtitle: widgetGeneratePromoButton(),
             trailing: IconButton(
-              onPressed: (){},
+              onPressed: (){
+                Get.to(MapPage());
+              },
               icon: const Icon(Icons.map_rounded,color: AppColor.bgAppBar,),
             ),
             contentPadding: EdgeInsets.zero,
@@ -94,7 +101,7 @@ class _RestaurantsTabState extends State<RestaurantsTab> {
         ],
       );
     },separatorBuilder: (context, index) {
-      return Container(width: Get.width,color: Colors.grey.withOpacity(0.1),height: 1,margin: EdgeInsets.only(bottom: 16),);
+      return Container(width: Get.width,color: Colors.grey.withOpacity(0.1),height: 1,margin: const EdgeInsets.only(bottom: 16),);
     },);
   }
 
@@ -138,5 +145,54 @@ class _RestaurantsTabState extends State<RestaurantsTab> {
           }).toList(),
         )));
   }
+
+
+  Widget widgetGeneratePromoButton(){
+    return Material(
+      type: MaterialType.canvas,
+      child: InkWell(
+        onTap: (){
+          ShowBottomSheets.generatePromoBottomSheet(context:context,isLoading:controller.isPromoLoading);
+          controller.isPromoLoading.value = true;
+          Future.delayed(const Duration(seconds: 1),() {
+            controller.isPromoLoading.value = false;
+          },);
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical:6.0,horizontal: 0),
+          decoration: const BoxDecoration(),
+          child: Text("Generate Promo code",style:AppTextStyle.textStyleBold10.copyWith(color: Colors.orange),),
+        ),
+      ),
+    );
+  }
+
+
+  openBottomSheet(){
+     showModalBottomSheet(context: context, builder: (context) {
+      return Container(
+        height: Get.height *0.25,
+        width: Get.width,
+        child: Obx(()=>controller.isPromoLoading.value ? const CustomLoader():Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+           DottedBorder(
+               color: Colors.black,
+               borderPadding: EdgeInsets.zero,
+               // strokeCap: StrokeCap.round,
+               // borderType: BorderType.,
+               strokeWidth: 1,
+               child: Container(
+                 color: AppColor.themeColor,
+                 padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10.0),
+             child: Text("A14rH",style: AppTextStyle.textStyleBold14.copyWith(color: Colors.white,letterSpacing: 2),),
+           ))
+          ],
+        )),
+      );
+    },);
+  }
+
 
 }

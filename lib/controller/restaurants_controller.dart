@@ -18,6 +18,9 @@ class RestaurantsController extends GetxController{
   RxList<dynamic> lunchMealTypeList = <dynamic>[].obs;
 
 
+  RxBool isPromoLoading = false.obs;
+
+
 
 
 

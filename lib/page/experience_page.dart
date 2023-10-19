@@ -55,7 +55,6 @@ class _ExperiencePageState extends State<ExperiencePage>  with SingleTickerProvi
   }
 
 
-
   Widget widgetTopBar(){
     return Container(
       height: 65,
@@ -91,7 +90,6 @@ class _ExperiencePageState extends State<ExperiencePage>  with SingleTickerProvi
       ),
     );
   }
-
 
 
 

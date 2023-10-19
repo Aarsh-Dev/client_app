@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
+import 'package:client_app/constant/show_bottom_sheets.dart';
+import 'package:client_app/constant/vars.dart';
+import 'package:client_app/map/map_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -61,9 +64,11 @@ class _NightLifeTabState extends State<NightLifeTab> {
               style: AppTextStyle.textStyleBold16
                   .copyWith(
                   color: AppColor.themeColor),),
-            subtitle:  Text("Generate Promo code",style:AppTextStyle.textStyleBold10.copyWith(color: Colors.orange),),
+            subtitle:  widgetGeneratePromoButton(),
             trailing: IconButton(
-              onPressed: (){},
+              onPressed: (){
+                Get.to(MapPage());
+              },
               icon: const Icon(Icons.map_rounded,color: AppColor.bgAppBar,),
             ),
             contentPadding: EdgeInsets.zero,
@@ -73,6 +78,26 @@ class _NightLifeTabState extends State<NightLifeTab> {
     },separatorBuilder: (context, index) {
       return Container(width: Get.width,color: Colors.grey.withOpacity(0.1),height: 1,margin: EdgeInsets.only(bottom: 16),);
     });
+  }
+
+  Widget widgetGeneratePromoButton(){
+    return Material(
+      type: MaterialType.canvas,
+      child: InkWell(
+        onTap: (){
+          ShowBottomSheets.generatePromoBottomSheet(context:context,isLoading:isPromoLoading);
+          isPromoLoading.value = true;
+          Future.delayed(const Duration(seconds: 1),() {
+            isPromoLoading.value = false;
+          },);
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical:6.0,horizontal: 0),
+          decoration: const BoxDecoration(),
+          child: Text("Generate Promo code",style:AppTextStyle.textStyleBold10.copyWith(color: Colors.orange),),
+        ),
+      ),
+    );
   }
 
 }
