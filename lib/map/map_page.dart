@@ -32,7 +32,7 @@ class MapPageState extends State<MapPage> {
   Set<Polyline> _polylines = Set<Polyline>();
   List<LatLng> polylineCoordinates = [];
   late PolylinePoints polylinePoints;
-  String googleAPIKey = 'AIzaSyDLSoI_Kx2le7KxpiCM2nupGNP2I6yjN_8';
+   String googleAPIKey = 'AIzaSyDLSoI_Kx2le7KxpiCM2nupGNP2I6yjN_8';
 
 // for my custom marker pins
   late BitmapDescriptor sourceIcon;
@@ -54,7 +54,7 @@ class MapPageState extends State<MapPage> {
       location: const LatLng(0, 0),
       locationName: '',
       labelColor: Colors.grey);
-  late PinInformation sourcePinInfo;
+   PinInformation? sourcePinInfo;
   late PinInformation destinationPinInfo;
 
 
@@ -194,7 +194,7 @@ class MapPageState extends State<MapPage> {
             position: option.latLng,
             onTap: () {
               setState(() {
-                currentlySelectedPin = sourcePinInfo;
+                currentlySelectedPin = sourcePinInfo!;
                 pinPillPosition = 0;
               });
             },
@@ -398,7 +398,7 @@ class MapPageState extends State<MapPage> {
         position: pinPosition,
         onTap: () {
           setState(() {
-            currentlySelectedPin = sourcePinInfo;
+            currentlySelectedPin = sourcePinInfo!;
             pinPillPosition = 0;
           });
         },
@@ -468,7 +468,7 @@ class MapPageState extends State<MapPage> {
       var pinPosition =
       LatLng(currentLocation.latitude!, currentLocation.longitude!);
 
-      sourcePinInfo.location = pinPosition;
+      sourcePinInfo?.location = pinPosition;
 
       // the trick is to remove the marker (by id)
       // and add it again at the updated location
@@ -477,7 +477,7 @@ class MapPageState extends State<MapPage> {
           markerId: const MarkerId('sourcePin'),
           onTap: () {
             setState(() {
-              currentlySelectedPin = sourcePinInfo;
+              currentlySelectedPin = sourcePinInfo!;
               pinPillPosition = 0;
             });
           },
