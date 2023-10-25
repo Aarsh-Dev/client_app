@@ -1,11 +1,10 @@
 import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
-import 'package:client_app/constant/assets_path.dart';
 import 'package:client_app/constant/show_dialog.dart';
 import 'package:client_app/controller/home_controller.dart';
-import 'package:client_app/tab/chart_tab.dart';
-import 'package:client_app/tab/helpline_tab.dart';
-import 'package:client_app/tab/home_tab.dart';
+import 'package:client_app/home/home_bottom_tab/chart_tab.dart';
+import 'package:client_app/home/home_bottom_tab/helpline_tab.dart';
+import 'package:client_app/home/home_bottom_tab/home_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

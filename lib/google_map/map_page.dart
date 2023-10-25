@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:client_app/constant/vars.dart';
-import 'package:client_app/map/pin_pill_info.dart';
+import 'package:client_app/google_map/pin_pill_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';

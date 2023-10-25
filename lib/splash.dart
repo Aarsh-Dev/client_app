@@ -1,6 +1,6 @@
 import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/assets_path.dart';
-import 'package:client_app/home.dart';
+import 'package:client_app/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

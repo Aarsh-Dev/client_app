@@ -3,27 +3,27 @@ import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/constant/show_bottom_sheets.dart';
 import 'package:client_app/constant/vars.dart';
-import 'package:client_app/map/map_page.dart';
+import 'package:client_app/google_map/map_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ShoppingTab extends StatefulWidget {
-  const ShoppingTab({Key? key}) : super(key: key);
+class NightLifeTab extends StatefulWidget {
+  const NightLifeTab({Key? key}) : super(key: key);
 
   @override
-  State<ShoppingTab> createState() => _ShoppingTabState();
+  State<NightLifeTab> createState() => _NightLifeTabState();
 }
 
-class _ShoppingTabState extends State<ShoppingTab> {
+class _NightLifeTabState extends State<NightLifeTab> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child:widgetShoppingList(),
+      child:widgetNightsLifeList(),
     );
   }
 
-  Widget widgetShoppingList(){
+  Widget widgetNightsLifeList(){
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -38,7 +38,7 @@ class _ShoppingTabState extends State<ShoppingTab> {
               borderRadius:
               BorderRadius.circular(4),
               child: CachedNetworkImage(
-                imageUrl:"https://assets.traveltriangle.com/blog/wp-content/uploads/2017/03/Sur-Wear.jpg",
+                imageUrl:"https://assets.traveltriangle.com/blog/wp-content/uploads/2015/08/Vertical-Point-in-Bali-.jpg",
                 fit: BoxFit.cover,
                 height: Get.height * 0.25,
                 width: Get.width,
@@ -59,7 +59,7 @@ class _ShoppingTabState extends State<ShoppingTab> {
             ),
           ),
           ListTile(
-            title:  Text("Beachwear: For Surfing Enthusiasts",
+            title:  Text("Rooftop Bars",
               style: AppTextStyle.textStyleBold16
                   .copyWith(
                   color: AppColor.themeColor),),
@@ -68,17 +68,16 @@ class _ShoppingTabState extends State<ShoppingTab> {
               onPressed: (){
                 Get.to(MapPage());
               },
-              icon: const Icon(Icons.map_rounded,color:AppColor.bgAppBar,),
+              icon: const Icon(Icons.map_rounded,color: AppColor.bgAppBar,),
             ),
             contentPadding: EdgeInsets.zero,
           ),
         ],
       );
     },separatorBuilder: (context, index) {
-      return Container(width: Get.width,color: Colors.grey.withOpacity(0.1),height: 1,margin: const EdgeInsets.only(bottom: 16),);
+      return Container(width: Get.width,color: Colors.grey.withOpacity(0.1),height: 1,margin: EdgeInsets.only(bottom: 16),);
     });
   }
-
 
   Widget widgetGeneratePromoButton(){
     return Material(
@@ -99,6 +98,5 @@ class _ShoppingTabState extends State<ShoppingTab> {
       ),
     );
   }
-
 
 }

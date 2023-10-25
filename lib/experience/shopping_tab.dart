@@ -3,28 +3,27 @@ import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/constant/show_bottom_sheets.dart';
 import 'package:client_app/constant/vars.dart';
-import 'package:client_app/map/map_page.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:client_app/google_map/map_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class NightLifeTab extends StatefulWidget {
-  const NightLifeTab({Key? key}) : super(key: key);
+class ShoppingTab extends StatefulWidget {
+  const ShoppingTab({Key? key}) : super(key: key);
 
   @override
-  State<NightLifeTab> createState() => _NightLifeTabState();
+  State<ShoppingTab> createState() => _ShoppingTabState();
 }
 
-class _NightLifeTabState extends State<NightLifeTab> {
+class _ShoppingTabState extends State<ShoppingTab> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: 10.0),
-      child:widgetNightsLifeList(),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child:widgetShoppingList(),
     );
   }
 
-  Widget widgetNightsLifeList(){
+  Widget widgetShoppingList(){
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -39,7 +38,7 @@ class _NightLifeTabState extends State<NightLifeTab> {
               borderRadius:
               BorderRadius.circular(4),
               child: CachedNetworkImage(
-                imageUrl:"https://assets.traveltriangle.com/blog/wp-content/uploads/2015/08/Vertical-Point-in-Bali-.jpg",
+                imageUrl:"https://assets.traveltriangle.com/blog/wp-content/uploads/2017/03/Sur-Wear.jpg",
                 fit: BoxFit.cover,
                 height: Get.height * 0.25,
                 width: Get.width,
@@ -60,7 +59,7 @@ class _NightLifeTabState extends State<NightLifeTab> {
             ),
           ),
           ListTile(
-            title:  Text("Rooftop Bars",
+            title:  Text("Beachwear: For Surfing Enthusiasts",
               style: AppTextStyle.textStyleBold16
                   .copyWith(
                   color: AppColor.themeColor),),
@@ -69,16 +68,17 @@ class _NightLifeTabState extends State<NightLifeTab> {
               onPressed: (){
                 Get.to(MapPage());
               },
-              icon: const Icon(Icons.map_rounded,color: AppColor.bgAppBar,),
+              icon: const Icon(Icons.map_rounded,color:AppColor.bgAppBar,),
             ),
             contentPadding: EdgeInsets.zero,
           ),
         ],
       );
     },separatorBuilder: (context, index) {
-      return Container(width: Get.width,color: Colors.grey.withOpacity(0.1),height: 1,margin: EdgeInsets.only(bottom: 16),);
+      return Container(width: Get.width,color: Colors.grey.withOpacity(0.1),height: 1,margin: const EdgeInsets.only(bottom: 16),);
     });
   }
+
 
   Widget widgetGeneratePromoButton(){
     return Material(
@@ -99,5 +99,6 @@ class _NightLifeTabState extends State<NightLifeTab> {
       ),
     );
   }
+
 
 }

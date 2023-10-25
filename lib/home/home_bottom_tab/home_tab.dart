@@ -3,10 +3,10 @@ import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/constant/assets_path.dart';
 import 'package:client_app/constant/method.dart';
 import 'package:client_app/controller/tours_controller.dart';
-import 'package:client_app/page/deals_page.dart';
-import 'package:client_app/page/experience_page.dart';
-import 'package:client_app/my_booking.dart';
-import 'package:client_app/page/more_activities_page.dart';
+import 'package:client_app/home/deals_page.dart';
+import 'package:client_app/home/experience_page.dart';
+import 'package:client_app/home/more_activities_page.dart';
+import 'package:client_app/home/my_booking_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -64,7 +64,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
             imgWidth: 18,
             title: "My Booking",
             onTap: (){
-          Get.to(const MyBooking());
+          Get.to(const MyBookingPage());
         }),
         topButton(
             imagePath: AssetPath.imgPlush,
@@ -100,9 +100,10 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
         isScrollable: true,
         unselectedLabelStyle: AppTextStyle.textStyleBold10.copyWith(color: Colors.black),
         unselectedLabelColor:Colors.black,
+        // labelPadding: EdgeInsets.symmetric(horizontal: 12.0),
         onTap: (value){
           if(value == 0){
-            Get.to(const MyBooking());
+            Get.to(const MyBookingPage());
           }else if(value == 1){
             toursController.getToursSearch();
             Get.to(const MoreActivitiesPage());

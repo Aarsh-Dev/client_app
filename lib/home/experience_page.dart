@@ -1,10 +1,10 @@
 import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/constant/assets_path.dart';
-import 'package:client_app/experience_tab/currency_converter_tab.dart';
-import 'package:client_app/experience_tab/night_life_tab.dart';
-import 'package:client_app/experience_tab/restaurants_tab.dart';
-import 'package:client_app/experience_tab/shopping_tab.dart';
+import 'package:client_app/experience/currency_converter_tab.dart';
+import 'package:client_app/experience/night_life_tab.dart';
+import 'package:client_app/experience/restaurants_tab.dart';
+import 'package:client_app/experience/shopping_tab.dart';
 import 'package:flutter/material.dart';
 
 class ExperiencePage extends StatefulWidget {
@@ -57,8 +57,8 @@ class _ExperiencePageState extends State<ExperiencePage>  with SingleTickerProvi
 
   Widget widgetTopBar(){
     return Container(
-      height: 65,
-      // padding: const EdgeInsets.symmetric(vertical: 8),
+      height: 50,
+      margin: const EdgeInsets.only(top: 8.0),
       decoration: const BoxDecoration(
       ),
       child: TabBar(
@@ -69,6 +69,7 @@ class _ExperiencePageState extends State<ExperiencePage>  with SingleTickerProvi
         isScrollable: true,
         unselectedLabelStyle: AppTextStyle.textStyleBold10.copyWith(color: Colors.black),
         unselectedLabelColor:Colors.black,
+        // labelPadding: EdgeInsets.symmetric(horizontal: 14.0),
         tabs: [
           Tab(
             text: "Restaurants",

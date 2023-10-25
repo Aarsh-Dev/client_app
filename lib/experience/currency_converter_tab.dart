@@ -1,7 +1,5 @@
-
-
 import 'package:client_app/controller/currency_controller.dart';
-import 'package:client_app/experience_tab/select_currency_screen.dart';
+import 'package:client_app/experience/select_currency_screen.dart';
 import 'package:client_app/widget/currency_data_input_form.dart';
 import 'package:client_app/widget/custom_loader.dart';
 import 'package:flutter/material.dart';
