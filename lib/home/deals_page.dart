@@ -129,25 +129,25 @@ class _DealsPageState extends State<DealsPage> {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 14.0),
-            decoration: const BoxDecoration(
-                color: Color(0xffF7F7F7),
-                border:Border(
-                    bottom: BorderSide(color: Colors.black26)
-                )
-            ),
-            child: Row(
-              children: [
-                Expanded(child: Text("14 Bought",style: AppTextStyle.textStyleRegular11,)),
-                Text("Add to favourites",style: AppTextStyle.textStyleRegular11),
-                const SizedBox(
-                  width: 5.0,
-                ),
-                Image.asset(AssetPath.imgUnselectLike,color: Colors.red,width: 14,height: 14,),
-              ],
-            ),
-          ),
+          // Container(
+          //   padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 14.0),
+          //   decoration: const BoxDecoration(
+          //       color: Color(0xffF7F7F7),
+          //       border:Border(
+          //           bottom: BorderSide(color: Colors.black26)
+          //       )
+          //   ),
+          //   child: Row(
+          //     children: [
+          //       Expanded(child: Text("14 Bought",style: AppTextStyle.textStyleRegular11,)),
+          //       Text("Add to favourites",style: AppTextStyle.textStyleRegular11),
+          //       const SizedBox(
+          //         width: 5.0,
+          //       ),
+          //       Image.asset(AssetPath.imgUnselectLike,color: Colors.red,width: 14,height: 14,),
+          //     ],
+          //   ),
+          // ),
         ],
       );
     },);
