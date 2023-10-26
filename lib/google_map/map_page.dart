@@ -205,6 +205,14 @@ class MapPageState extends State<MapPage> {
         if(modelSuggestion != null){
           mapController.yourLocationTextEditingController.text = modelSuggestion.name??'';
           sourceLocation = modelSuggestion.latLng;
+
+          SOURCE_LOCATION =  LatLng(modelSuggestion.latLng.latitude,modelSuggestion.latLng.longitude);
+
+          // currentLocation=LocationData.fromMap({
+          //   "latitude": modelSuggestion.latLng.latitude,
+          //   "longitude": modelSuggestion.latLng.longitude,
+          // });
+
           _markers.add(Marker(
               markerId: const MarkerId('sourcePin'),
               position: modelSuggestion.latLng,
@@ -273,6 +281,9 @@ class MapPageState extends State<MapPage> {
           mapController.destinationTextEditingController.text = modelSuggestion.name??'';
 
           destination = modelSuggestion.latLng;
+
+          DEST_LOCATION =  LatLng(modelSuggestion.latLng.latitude,modelSuggestion.latLng.longitude);
+
           destinationLocation = LocationData.fromMap({
             "latitude": modelSuggestion.latLng.latitude,
             "longitude": modelSuggestion.latLng.longitude
@@ -647,9 +658,12 @@ class MapPageState extends State<MapPage> {
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       googleAPIKey, // Your Google Map Key
-      PointLatLng(currentLocation.latitude!, currentLocation.longitude!),
+      PointLatLng(SOURCE_LOCATION.latitude, SOURCE_LOCATION.longitude),
       PointLatLng(
-          destinationLocation.latitude!, destinationLocation.longitude!),
+          DEST_LOCATION.latitude, DEST_LOCATION.longitude),
+      // PointLatLng(currentLocation.latitude!, currentLocation.longitude!),
+      // PointLatLng(
+      //     destinationLocation.latitude!, destinationLocation.longitude!),
     );
 
     if (result.points.isNotEmpty) {
