@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/constant/vars.dart';
 import 'package:client_app/controller/map_controller.dart';
@@ -27,8 +28,11 @@ class _SearchLocationState extends State<SearchLocation> {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
-          backgroundColor: Colors.white,
+          // backgroundColor:AppColor.themeColor,
           leadingWidth: 0,
+          flexibleSpace: Container(
+            color: Colors.white,
+          ),
           elevation: 0,
           // leadingWidth: 20.0,
           titleSpacing: 0,
@@ -38,6 +42,7 @@ class _SearchLocationState extends State<SearchLocation> {
                 controller: controller.searchTextEditingController,
                 textAlignVertical: TextAlignVertical.center,
                 maxLines: 1,
+                cursorColor: Colors.black,
                 onChanged: (value) {
                   fetchSuggestions(value);
                   if (controller.searchTextEditingController.text.isNotEmpty) {
@@ -75,7 +80,7 @@ class _SearchLocationState extends State<SearchLocation> {
                         : const SizedBox.shrink())),
                 style: AppTextStyle.textStyleRegular14),
           )),
-      body: ListView.builder(
+      body: ListView.separated(
         shrinkWrap: true,
         padding: const EdgeInsets.symmetric(vertical: 14.0,horizontal: 12.0),
         itemCount: suggestionList.length ,
@@ -124,6 +129,10 @@ class _SearchLocationState extends State<SearchLocation> {
             ),
           ),
         );
+      }, separatorBuilder: (BuildContext context, int index) {
+          return SizedBox(
+            height: 14.0,
+          );
       },),
     );
   }

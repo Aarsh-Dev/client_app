@@ -26,6 +26,10 @@ class CurrencyController extends GetxController{
   TextEditingController firstCurrencyConvertTextEditController=TextEditingController(text:"INR");
   TextEditingController secondCurrencyConvertTextEditController=TextEditingController(text:"USD");
 
+  TextEditingController inrTextEditController=TextEditingController();
+  TextEditingController idrTextEditController=TextEditingController();
+  TextEditingController usdTextEditController=TextEditingController();
+
   RxBool isCurrencyLoading = false.obs;
   RxBool isExchangeRateLoading = false.obs;
 

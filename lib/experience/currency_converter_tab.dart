@@ -1,7 +1,5 @@
 import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/controller/currency_controller.dart';
-import 'package:client_app/experience/select_currency_screen.dart';
-import 'package:client_app/widget/currency_data_input_form.dart';
 import 'package:client_app/widget/custom_loader.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +75,44 @@ class _HomeScreenState extends State<CurrencyTab> {
                                     ),
                                   ),
                                   onChanged:(value){
+                                    if(controller.selectedFromCurrency.value == "IDR"){
+                                      controller.inrTextEditController.text= controller.convertAnyToAny(
+                                          value,
+                                          controller.selectedFromTextEditController.text,
+                                          "INR");
+                                      controller.usdTextEditController.text= controller.convertAnyToAny(
+                                          value,
+                                          controller.selectedFromTextEditController.text,
+                                          "USD");
+                                      setState(() {
 
+                                      });
+                                    }else if(controller.selectedFromCurrency.value == "INR"){
+                                      controller.idrTextEditController.text= controller.convertAnyToAny(
+                                          value,
+                                          controller.selectedFromTextEditController.text,
+                                          "IDR");
+                                      controller.idrTextEditController.text= controller.convertAnyToAny(
+                                          value,
+                                          controller.selectedFromTextEditController.text,
+                                          "USD");
+                                      setState(() {
+
+                                      });
+
+                                    }else if(controller.selectedFromCurrency.value == "USD"){
+                                      controller.idrTextEditController.text= controller.convertAnyToAny(
+                                          value,
+                                          controller.selectedFromTextEditController.text,
+                                          "IDR");
+                                      controller.inrTextEditController.text= controller.convertAnyToAny(
+                                          value,
+                                          controller.selectedFromTextEditController.text,
+                                          "INR");
+                                      setState(() {
+
+                                      });
+                                    }
                                   },
                                 ),
                               ),
@@ -143,17 +178,45 @@ class _HomeScreenState extends State<CurrencyTab> {
                         const SizedBox(
                           height: 10.0,
                         ),
-                        widgetConvertCurrency(
-                          currencyType: controller.firstCurrencyConvertTextEditController.text,
-                            textEditingController:controller.selectedFromTextEditController
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        widgetConvertCurrency(
-                            currencyType: controller.secondCurrencyConvertTextEditController.text,
-                          textEditingController:controller.selectedToTextEditController
-                        ),
+                        if(controller.selectedFromCurrency.value == "IDR")...[
+                          widgetConvertCurrency(
+                              currencyType: "INR",
+                              textEditingController:controller.inrTextEditController
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          widgetConvertCurrency(
+                              currencyType: "USD",
+                              textEditingController:controller.usdTextEditController
+                          ),
+                        ]else if(controller.selectedFromCurrency.value == "INR")...[
+                          widgetConvertCurrency(
+                              currencyType: "IDR",
+                              textEditingController:controller.idrTextEditController
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          widgetConvertCurrency(
+                              currencyType: "USD",
+                              textEditingController:controller.usdTextEditController
+                          ),
+
+                        ]else if(controller.selectedFromCurrency.value == "USD")...[
+                          widgetConvertCurrency(
+                              currencyType: "IDR",
+                              textEditingController:controller.idrTextEditController
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          widgetConvertCurrency(
+                              currencyType: "INR",
+                              textEditingController:controller.inrTextEditController
+                          ),
+
+                        ],
                         // CurrencyDataInputForm(
                         //   title: 'Converted Amount',
                         //   // val: controller.convertAnyToAny(
@@ -201,7 +264,9 @@ class _HomeScreenState extends State<CurrencyTab> {
       ),
       child: Row(
         children: [
-          Text(currencyType,style:AppTextStyle.textStyleRegular14),
+          Container(
+             constraints: const BoxConstraints(minWidth:65, maxHeight: 35),
+              child: Center(child: Text(currencyType,style:AppTextStyle.textStyleRegular12))),
           const SizedBox(
             width: 10.0,
           ),

@@ -179,6 +179,7 @@ class MapPageState extends State<MapPage> {
           style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
         ),
       ),
+      bottomSheet:  const Padding(padding: EdgeInsets.only(bottom: 100.0)),
     ));
   }
 
@@ -203,7 +204,7 @@ class MapPageState extends State<MapPage> {
         ModelSuggestion? modelSuggestion = await Get.to( SearchLocation(currentLocation:currentLocation));
 
         if(modelSuggestion != null){
-          mapController.yourLocationTextEditingController.text = modelSuggestion.name??'';
+          mapController.yourLocationTextEditingController.text = modelSuggestion.name;
           sourceLocation = modelSuggestion.latLng;
 
           SOURCE_LOCATION =  LatLng(modelSuggestion.latLng.latitude,modelSuggestion.latLng.longitude);
@@ -278,7 +279,7 @@ class MapPageState extends State<MapPage> {
         ModelSuggestion? modelSuggestion = await Get.to( SearchLocation(currentLocation:currentLocation));
         if(modelSuggestion != null){
 
-          mapController.destinationTextEditingController.text = modelSuggestion.name??'';
+          mapController.destinationTextEditingController.text = modelSuggestion.name;
 
           destination = modelSuggestion.latLng;
 
@@ -383,7 +384,7 @@ class MapPageState extends State<MapPage> {
             ModelSuggestion? modelSuggestion = await Get.to( SearchLocation(currentLocation:currentLocation));
 
             if(modelSuggestion != null){
-              mapController.yourLocationTextEditingController.text = modelSuggestion.name??'';
+              mapController.yourLocationTextEditingController.text = modelSuggestion.name;
               sourceLocation = modelSuggestion.latLng;
               _markers.add(Marker(
                   markerId: const MarkerId('sourcePin'),
@@ -485,7 +486,7 @@ class MapPageState extends State<MapPage> {
             ModelSuggestion? modelSuggestion = await Get.to( SearchLocation(currentLocation:currentLocation));
             if(modelSuggestion != null){
 
-              mapController.destinationTextEditingController.text = modelSuggestion.name??'';
+              mapController.destinationTextEditingController.text = modelSuggestion.name;
 
               destination = modelSuggestion.latLng;
               destinationLocation = LocationData.fromMap({

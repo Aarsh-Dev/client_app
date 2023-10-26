@@ -31,6 +31,7 @@ class _SplashState extends State<Splash> {
         elevation: 0,
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: AppColor.bg,
+          systemNavigationBarIconBrightness: Brightness.light
         ),
         backgroundColor: Colors.transparent,
       ),
