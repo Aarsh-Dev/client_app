@@ -21,6 +21,11 @@ class CurrencyController extends GetxController{
   TextEditingController selectedFromTextEditController=TextEditingController();
   TextEditingController selectedToTextEditController=TextEditingController();
 
+
+
+  TextEditingController firstCurrencyConvertTextEditController=TextEditingController(text:"INR");
+  TextEditingController secondCurrencyConvertTextEditController=TextEditingController(text:"USD");
+
   RxBool isCurrencyLoading = false.obs;
   RxBool isExchangeRateLoading = false.obs;
 
@@ -31,12 +36,18 @@ class CurrencyController extends GetxController{
 
   RxList<String> currencyList = <String>['RUPEE',"USD"].obs;
 
-  RxString selectedFromCurrency = "INR".obs;
+  RxString selectedFromCurrency = "IDR".obs;
   RxString selectedToCurrency = "USD".obs;
 
 
   RxList<Currency> currencies =<Currency>[].obs;
   RxList<Currency> filteredCurrencies =<Currency>[].obs;
+
+  RxList<String> currencyTypeList = <String>[
+    'IDR',
+    'INR',
+    'USD',
+  ].obs;
 
 
   @override
@@ -129,6 +140,12 @@ class CurrencyController extends GetxController{
     final temp = selectedFromCurrency.value;
     selectedFromCurrency.value = selectedToCurrency.value;
     selectedToCurrency.value = temp;
+  }
+
+  swapConvertCurrency(){
+    // for(int i =0;i<currencyTypeList.length;i++){
+    //   if()
+    // }
   }
 
 

@@ -9,6 +9,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
 
+import 'search_location.dart';
+
 class MapPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => MapPageState();
@@ -208,35 +210,42 @@ class MapPageState extends State<MapPage> {
           FocusNode fieldFocusNode,
           VoidCallback onFieldSubmitted) {
         yourLocationController = fieldTextEditingController;
-        return Container(
-          height: 45,
-          width: MediaQuery.of(context).size.width,
-          margin: const EdgeInsets.symmetric(horizontal: 10.0),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(4.0),
-              border: Border.all(color: Colors.black26)),
-          child: TextField(
-            controller: fieldTextEditingController,
-            focusNode: fieldFocusNode,
-            textAlignVertical: TextAlignVertical.center,
-            maxLines: 1,
-            onTap: () {
-              suggestionList.clear();
-            },
-            onChanged: (value) {
-              fetchSuggestions(value);
-            },
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.only(left: 5.0),
-              hintText: "Your location",
-              hintStyle: TextStyle(fontSize: 14, color: Colors.black26),
-              focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
-              enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-              prefixIcon: Icon(
-                Icons.my_location_rounded,
-                color: Colors.blue,
-                size: 16,
+        return InkWell(
+          onTap: (){
+            Get.to(const SearchLocation());
+          },
+          child: Container(
+            height: 45,
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.symmetric(horizontal: 10.0),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(4.0),
+                border: Border.all(color: Colors.black26)),
+            child: TextField(
+              controller: fieldTextEditingController,
+              focusNode: fieldFocusNode,
+              textAlignVertical: TextAlignVertical.center,
+              maxLines: 1,
+              enabled: false,
+              readOnly: true,
+              onTap: () {
+                suggestionList.clear();
+              },
+              onChanged: (value) {
+                fetchSuggestions(value);
+              },
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.only(left: 5.0),
+                hintText: "Your location",
+                hintStyle: TextStyle(fontSize: 14, color: Colors.black26),
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
+                prefixIcon: Icon(
+                  Icons.my_location_rounded,
+                  color: Colors.blue,
+                  size: 16,
+                ),
               ),
             ),
           ),
@@ -333,10 +342,8 @@ class MapPageState extends State<MapPage> {
   List<Suggestion> suggestionList = [];
 
   fetchSuggestions(String input) async {
-    // final request =
-    //     'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&location=${currentLocation!.latitude},${currentLocation!.longitude}&types=shop&radius=500&language=en&key=$apiKey';
-    final request =
-        'https://maps.googleapis.com/maps/api/place/textsearch/json?query=$input&location=${currentLocation.latitude},${currentLocation.longitude}&key=$apiKey';
+    // final request = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&location=${currentLocation!.latitude},${currentLocation!.longitude}&types=shop&radius=500&language=en&key=$apiKey';
+    final request = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=$input&location=${currentLocation.latitude},${currentLocation.longitude}&key=$apiKey';
     final response = await http.get(Uri.parse(request));
 
     if (response.statusCode == 200) {

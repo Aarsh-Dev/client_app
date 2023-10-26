@@ -32,6 +32,18 @@ class ToursController extends GetxController{
 
 
 
+  RxList<String> dateList = <String>[
+    '12-Nov-2023',
+    '13-Nov-2023',
+    '14-Nov-2023',
+    '15-Nov-2023',
+    '16-Nov-2023',
+  ].obs;
+
+  RxString selectDate = "".obs;
+
+
+
 
   Future<void> getToursSearch() async {
     toursList.clear();

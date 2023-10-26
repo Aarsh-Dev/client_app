@@ -261,7 +261,16 @@ class _MyBookingPageState extends State<MyBookingPage> {
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(5.0)
                         ),
-                        child: Text("Feedback".toUpperCase(),style: AppTextStyle.textStyleBold13,),
+                        child:Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text("Feedback".toUpperCase(),style: AppTextStyle.textStyleBold13,),
+                            const SizedBox(
+                              width: 8.0,
+                            ),
+                            const Icon(Icons.feedback_outlined,size: 18.0,color: Colors.white,),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(

@@ -5,6 +5,7 @@ import 'package:client_app/constant/method.dart';
 import 'package:client_app/controller/tours_controller.dart';
 import 'package:client_app/tour_detail.dart';
 import 'package:client_app/widget/custom_loader.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -384,41 +385,7 @@ class _MoreActivitiesPageState extends State<MoreActivitiesPage> {
                           ? const SizedBox(width: 0,)
                           : const SizedBox(width: 16,),
                       Expanded(
-                          child:
-                          Material(
-                            color: Colors.white,
-                            borderRadius:
-                            BorderRadius.circular(4),
-                            child: InkWell(
-                              onTap: (){
-                                openDatePiker(index: index);
-                              },
-                              child: Container(
-                                width: 120,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black26),
-                                  borderRadius: BorderRadius.circular(5.0)
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    toursController.toursList[index]['SelectDate'].isEmpty ? "Select Date" : toursController.toursList[index]['SelectDate']??'',
-                                    style:
-                                    toursController.toursList[index]['SelectDate'].isEmpty ?
-                                    AppTextStyle
-                                        .textStyleBold10
-                                        .copyWith(
-                                        color: Colors.grey
-                                    ): AppTextStyle
-                                        .textStyleBold11
-                                        .copyWith(
-                                        color: Colors.black
-                                    ),
-                                  )
-                                ),
-                              ),
-                            ),
-                          )),
+                          child:widgetDateDropDown(index:index)),
                       toursController
                           .toursList[index]['TourDetails']
                       [0]['TourAddOn']
@@ -642,6 +609,68 @@ class _MoreActivitiesPageState extends State<MoreActivitiesPage> {
             );
           },),
         ],
+      ),
+    );
+  }
+
+  Widget widgetDateDropDown({index}){
+    return DropdownButtonFormField2(
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.zero,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide: const BorderSide(color: Colors.black26)
+          ),
+          constraints: BoxConstraints(maxWidth: Get.width, maxHeight: 35)),
+      isExpanded: true,
+      hint: Text(
+        toursController.toursList[index]['SelectDate'].isEmpty?'Select Date':
+        toursController.toursList[index]['SelectDate'],
+        style: toursController.toursList[index]['SelectDate'].isEmpty
+            ? AppTextStyle.textStyleLight12
+            : AppTextStyle.textStyleRegular12,
+      ),
+      items: toursController.dateList
+          .map((value) => DropdownMenuItem<String>(
+        value: value,
+        child: Text(value,
+          style: AppTextStyle.textStyleRegular12,
+        ),
+      ))
+          .toList(),
+      validator: (value) {
+        if (value == null) {
+          return 'Please select city.';
+        }
+        return null;
+      },
+      onChanged: (newValue) {
+        toursController.toursList[index]['SelectDate'] = newValue;
+      },
+      menuItemStyleData: const MenuItemStyleData(
+        height: 35,
+      ),
+      buttonStyleData: ButtonStyleData(
+        height: 50,
+        width: Get.width,
+        padding: const EdgeInsets.only(left: 16),
+      ),
+      iconStyleData: const IconStyleData(
+        icon: Icon(
+          Icons.arrow_drop_down,
+          color: Colors.black45,
+        ),
+        iconSize: 20,
+      ),
+      dropdownStyleData: DropdownStyleData(
+        maxHeight: 500,
+        useSafeArea: true,
+        scrollbarTheme: ScrollbarThemeData(
+          thumbVisibility: MaterialStateProperty.all<bool>(true),
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+        ),
       ),
     );
   }
