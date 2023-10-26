@@ -63,7 +63,7 @@ class _ExperiencePageState extends State<ExperiencePage>  with SingleTickerProvi
       ),
       child: TabBar(
         controller: tabController,
-        indicatorColor: Colors.transparent,
+        indicatorColor: Colors.red,
         labelStyle:AppTextStyle.textStyleBold10.copyWith(color: Colors.black),
         labelColor: Colors.black,
         isScrollable: true,

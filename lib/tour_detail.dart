@@ -82,7 +82,7 @@ class _TourDetailState extends State<TourDetail> {
               color: AppColor.themeColor,
               width: Get.width,
               child: TabBar(
-                  isScrollable: false,
+                  isScrollable: true,
                   indicatorColor: AppColor.whiteColor,
                   onTap: (index) {
                     controller.currentIndex.value = index;

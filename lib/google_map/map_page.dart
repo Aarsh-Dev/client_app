@@ -342,8 +342,10 @@ class MapPageState extends State<MapPage> {
   List<Suggestion> suggestionList = [];
 
   fetchSuggestions(String input) async {
-    // final request = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&location=${currentLocation!.latitude},${currentLocation!.longitude}&types=shop&radius=500&language=en&key=$apiKey';
-    final request = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=$input&location=${currentLocation.latitude},${currentLocation.longitude}&key=$apiKey';
+    // final request =
+    //     'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&location=${currentLocation!.latitude},${currentLocation!.longitude}&types=shop&radius=500&language=en&key=$apiKey';
+    final request =
+        'https://maps.googleapis.com/maps/api/place/textsearch/json?query=$input&key=$apiKey';
     final response = await http.get(Uri.parse(request));
 
     if (response.statusCode == 200) {

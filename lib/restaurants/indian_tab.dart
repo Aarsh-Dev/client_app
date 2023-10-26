@@ -68,7 +68,15 @@ class _IndianTabState extends State<IndianTab> {
                 style: AppTextStyle.textStyleBold16
                     .copyWith(color: AppColor.themeColor),
               ),
-              subtitle: widgetGeneratePromoButton(),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 4,),
+                  Text("Distance: 2.5 KM",style: AppTextStyle.textStyleRegular12,),
+                  widgetGeneratePromoButton(),
+                ],
+              ),
               trailing: IconButton(
                 onPressed: () {
                   Get.to(MapPage());
