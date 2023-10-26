@@ -1,21 +1,31 @@
+import 'dart:convert';
+import 'dart:math';
 import 'package:client_app/constant/app_text_style.dart';
+import 'package:client_app/constant/vars.dart';
 import 'package:client_app/controller/map_controller.dart';
+import 'package:client_app/model/model_suggetion.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'package:location_platform_interface/location_platform_interface.dart';
 
 class SearchLocation extends StatefulWidget {
-  const SearchLocation({Key? key}) : super(key: key);
+  final LocationData currentLocation;
+  const SearchLocation({Key? key,required this.currentLocation}) : super(key: key);
 
   @override
   State<SearchLocation> createState() => _SearchLocationState();
 }
 
 class _SearchLocationState extends State<SearchLocation> {
+
   MapController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
           backgroundColor: Colors.white,
           leadingWidth: 0,
@@ -29,6 +39,7 @@ class _SearchLocationState extends State<SearchLocation> {
                 textAlignVertical: TextAlignVertical.center,
                 maxLines: 1,
                 onChanged: (value) {
+                  fetchSuggestions(value);
                   if (controller.searchTextEditingController.text.isNotEmpty) {
                     controller.isShowCancelIcon.value = true;
                   } else {
@@ -54,6 +65,7 @@ class _SearchLocationState extends State<SearchLocation> {
                     suffixIcon: Obx(() => controller.isShowCancelIcon.value
                         ? IconButton(
                             onPressed: () {
+                              controller.searchTextEditingController.clear();
                               controller.isSearch.value = false;
                             },
                             icon: const Icon(
@@ -65,17 +77,115 @@ class _SearchLocationState extends State<SearchLocation> {
           )),
       body: ListView.builder(
         shrinkWrap: true,
-        padding: const EdgeInsets.symmetric(vertical: 14.0),
-        itemCount: 5 ,
+        padding: const EdgeInsets.symmetric(vertical: 14.0,horizontal: 12.0),
+        itemCount: suggestionList.length ,
         itemBuilder: (context, index) {
-        return ListTile(
-          leading: const CircleAvatar(
-              backgroundColor: Color(0xffF1F3F4),
-              child: Icon(Icons.location_on_outlined,color: Colors.black,)),
-          title: Text("Jahangirpura",style: AppTextStyle.textStyleBold12,),
-          subtitle: Text("Surat,Gujarat",style: AppTextStyle.textStyleRegular11,),
+        return InkWell(
+          onTap: (){
+            Get.back(result:suggestionList[index]);
+          },
+          child: Container(
+            padding: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Row(
+              children: [
+                Column(
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.location_on_outlined,color: Colors.black,),
+                    Text(calculateDistance(widget.currentLocation.latitude,widget.currentLocation.longitude,suggestionList[index].latLng.latitude,suggestionList[index].latLng.longitude),textAlign: TextAlign.center,style: AppTextStyle.textStyleRegular10,)
+                  ],
+                ),
+                SizedBox(
+                  width: 20.0,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Text(suggestionList[index].name??'',style: AppTextStyle.textStyleBold12,),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Text(suggestionList[index].fullAddress??'',style: AppTextStyle.textStyleRegular11,),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
       },),
     );
   }
+
+  String calculateDistance(lat1, lon1, lat2, lon2){
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 - c((lat2 - lat1) * p)/2 +
+        c(lat1 * p) * c(lat2 * p) *
+            (1 - c((lon2 - lon1) * p))/2;
+    return "${(12742 * asin(sqrt(a))).toStringAsFixed(2)}\nkm";
+  }
+
+  RxList<ModelSuggestion> suggestionList = <ModelSuggestion>[].obs;
+
+
+  fetchSuggestions(String input) async {
+    // final request =
+    //     'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&location=${currentLocation!.latitude},${currentLocation!.longitude}&types=shop&radius=500&language=en&key=$apiKey';
+    final request =
+        'https://maps.googleapis.com/maps/api/place/textsearch/json?query=$input&key=$apiKey';
+    final response = await http.get(Uri.parse(request));
+
+    if (response.statusCode == 200) {
+      final result = json.decode(response.body);
+      if (result['status'] == 'OK') {
+        List data = result['results'];
+        suggestionList.clear();
+
+        for (int i = 0; i < data.length; i++) {
+          suggestionList.add(ModelSuggestion(
+              data[i]['place_id'],
+              data[i]['formatted_address'],
+              data[i]['name'],
+              data[i]['formatted_address'],
+              LatLng(data[i]['geometry']['location']['lat'],
+                  data[i]['geometry']['location']['lng'])));
+        }
+
+        // compose suggestions in a list
+        // suggestionList = result['predictions']
+        //     .map<Suggestion>((p) => Suggestion(p['place_id'], p['description']))
+        //     .toList();
+        setState(() {});
+        debugPrint("");
+        // return result['predictions']
+        //     .map<Suggestion>((p) => Suggestion(p['place_id'], p['description']))
+        //     .toList();
+      }
+    } else {
+      throw Exception('Failed to fetch suggestion');
+    }
+  }
+
+}
+
+class Suggestion {
+  final String placeId;
+  final String address;
+  final String name;
+  final String fullAddress;
+  final LatLng latLng;
+
+  Suggestion(this.placeId, this.address, this.name,this.fullAddress,this.latLng);
 }

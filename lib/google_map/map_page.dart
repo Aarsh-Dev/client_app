@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/constant/vars.dart';
+import 'package:client_app/controller/map_controller.dart';
 import 'package:client_app/google_map/pin_pill_info.dart';
+import 'package:client_app/model/model_suggetion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
@@ -58,6 +61,10 @@ class MapPageState extends State<MapPage> {
       labelColor: Colors.grey);
    PinInformation? sourcePinInfo;
   late PinInformation destinationPinInfo;
+
+
+
+  MapController mapController = Get.find();
 
 
 
@@ -151,11 +158,11 @@ class MapPageState extends State<MapPage> {
                 const SizedBox(
                   height: 16.0,
                 ),
-                autoCompleteSource(),
+                widgetSourceLocation(),
                 const SizedBox(
                   height: 16.0,
                 ),
-                autoCompleteDestination(),
+                widgetDestinationLocation(),
               ],
             ),
           ),
@@ -184,13 +191,160 @@ class MapPageState extends State<MapPage> {
   TextEditingValue sourceValue = const TextEditingValue();
   TextEditingValue destinationValue = const TextEditingValue();
 
+
+
+  Widget widgetSourceLocation(){
+    return InkWell(
+      onTap: () async {
+        mapController.isSourceDestination.value = true;
+        mapController.searchTextEditingController.clear();
+        mapController.isShowCancelIcon.value = false;
+
+        ModelSuggestion? modelSuggestion = await Get.to( SearchLocation(currentLocation:currentLocation));
+
+        if(modelSuggestion != null){
+          mapController.yourLocationTextEditingController.text = modelSuggestion.name??'';
+          sourceLocation = modelSuggestion.latLng;
+          _markers.add(Marker(
+              markerId: const MarkerId('sourcePin'),
+              position: modelSuggestion.latLng,
+              onTap: () {
+                setState(() {
+                  currentlySelectedPin = sourcePinInfo!;
+                  pinPillPosition = 0;
+                });
+              },
+              icon: sourceIcon));
+
+          setState(() {});
+        }
+      },
+      child: Container(
+        height: 45,
+        width: MediaQuery.of(context).size.width,
+        margin: const EdgeInsets.symmetric(horizontal: 10.0),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(4.0),
+            border: Border.all(color: Colors.black26)),
+        child: TextField(
+          controller: mapController.yourLocationTextEditingController,
+          textAlignVertical: TextAlignVertical.center,
+          maxLines: 1,
+          enabled: false,
+          readOnly: true,
+          onTap: () {
+            suggestionList.clear();
+          },
+          onChanged: (value) {
+            fetchSuggestions(value);
+          },
+          style:AppTextStyle.textStyleRegular12,
+          decoration: const InputDecoration(
+            isCollapsed: true,
+            // contentPadding: EdgeInsets.only(left: 5.0),
+            hintText: "Your location",
+            hintStyle: TextStyle(fontSize: 14, color: Colors.black26),
+            focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+            enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
+            prefixIcon: Icon(
+              Icons.my_location_rounded,
+              color: Colors.blue,
+              size: 16,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+
+  Widget widgetDestinationLocation(){
+    return InkWell(
+      onTap: () async {
+
+        mapController.searchTextEditingController.clear();
+        mapController.isSourceDestination.value = false;
+        mapController.isShowCancelIcon.value = false;
+
+        ModelSuggestion? modelSuggestion = await Get.to( SearchLocation(currentLocation:currentLocation));
+        if(modelSuggestion != null){
+
+          mapController.destinationTextEditingController.text = modelSuggestion.name??'';
+
+          destination = modelSuggestion.latLng;
+          destinationLocation = LocationData.fromMap({
+            "latitude": modelSuggestion.latLng.latitude,
+            "longitude": modelSuggestion.latLng.longitude
+          });
+          _markers.add(Marker(
+              markerId: const MarkerId('destPin'),
+              position: modelSuggestion.latLng,
+              onTap: () {
+                setState(() {
+                  currentlySelectedPin = destinationPinInfo;
+                  pinPillPosition = 0;
+                });
+              },
+              icon: destinationIcon));
+
+          setState(() {});
+          polylineCoordinates.clear();
+        }
+      },
+      child: Container(
+        height: 45,
+        width: MediaQuery.of(context).size.width,
+        margin: const EdgeInsets.symmetric(horizontal: 10.0),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(4.0),
+            border: Border.all(color: Colors.black26)),
+        child: TextField(
+          controller:mapController.destinationTextEditingController,
+          textAlignVertical: TextAlignVertical.center,
+          maxLines: 1,
+          enabled: false,
+          onTap: () {
+            suggestionList.clear();
+          },
+          onChanged: (value) {
+            fetchSuggestions(value);
+          },
+          style:AppTextStyle.textStyleRegular12,
+          decoration: const InputDecoration(
+            isCollapsed: true,
+            // contentPadding: EdgeInsets.only(left: 5.0),
+            hintText: "Choose destination",
+            hintStyle: TextStyle(fontSize: 14, color: Colors.black26),
+            focusedBorder:
+            OutlineInputBorder(borderSide: BorderSide.none),
+            enabledBorder:
+            OutlineInputBorder(borderSide: BorderSide.none),
+            prefixIcon: Icon(
+              Icons.location_on,
+              color: Colors.red,
+              size: 16,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+
+
+
   autoCompleteSource() {
     return Autocomplete<Suggestion>(
       onSelected: (option) async {
         FocusManager.instance.primaryFocus!.unfocus();
         debugPrint(option.toString());
         sourceLocation = option.latLng;
-
+        // currentLocation=LocationData.fromMap({
+        //   "latitude": SOURCE_LOCATION.latitude,
+        //   "longitude": SOURCE_LOCATION.longitude
+        // });
         _markers.add(Marker(
             markerId: const MarkerId('sourcePin'),
             position: option.latLng,
@@ -211,8 +365,28 @@ class MapPageState extends State<MapPage> {
           VoidCallback onFieldSubmitted) {
         yourLocationController = fieldTextEditingController;
         return InkWell(
-          onTap: (){
-            Get.to(const SearchLocation());
+          onTap: () async {
+            mapController.isSourceDestination.value = true;
+            mapController.searchTextEditingController.clear();
+
+            ModelSuggestion? modelSuggestion = await Get.to( SearchLocation(currentLocation:currentLocation));
+
+            if(modelSuggestion != null){
+              mapController.yourLocationTextEditingController.text = modelSuggestion.name??'';
+              sourceLocation = modelSuggestion.latLng;
+              _markers.add(Marker(
+                  markerId: const MarkerId('sourcePin'),
+                  position: modelSuggestion.latLng,
+                  onTap: () {
+                    setState(() {
+                      currentlySelectedPin = sourcePinInfo!;
+                      pinPillPosition = 0;
+                    });
+                  },
+                  icon: sourceIcon));
+
+              setState(() {});
+            }
           },
           child: Container(
             height: 45,
@@ -223,7 +397,7 @@ class MapPageState extends State<MapPage> {
                 borderRadius: BorderRadius.circular(4.0),
                 border: Border.all(color: Colors.black26)),
             child: TextField(
-              controller: fieldTextEditingController,
+              controller: mapController.yourLocationTextEditingController,
               focusNode: fieldFocusNode,
               textAlignVertical: TextAlignVertical.center,
               maxLines: 1,
@@ -235,8 +409,10 @@ class MapPageState extends State<MapPage> {
               onChanged: (value) {
                 fetchSuggestions(value);
               },
+              style:AppTextStyle.textStyleRegular12,
               decoration: const InputDecoration(
-                contentPadding: EdgeInsets.only(left: 5.0),
+                isCollapsed: true,
+                // contentPadding: EdgeInsets.only(left: 5.0),
                 hintText: "Your location",
                 hintStyle: TextStyle(fontSize: 14, color: Colors.black26),
                 focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
@@ -291,37 +467,70 @@ class MapPageState extends State<MapPage> {
           FocusNode fieldFocusNode,
           VoidCallback onFieldSubmitted) {
         destinationLocationController = fieldTextEditingController;
-        return Container(
-          height: 45,
-          width: MediaQuery.of(context).size.width,
-          margin: const EdgeInsets.symmetric(horizontal: 10.0),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(4.0),
-              border: Border.all(color: Colors.black26)),
-          child: TextField(
-            controller: fieldTextEditingController,
-            focusNode: fieldFocusNode,
-            textAlignVertical: TextAlignVertical.center,
-            maxLines: 1,
-            onTap: () {
-              suggestionList.clear();
-            },
-            onChanged: (value) {
-              fetchSuggestions(value);
-            },
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.only(left: 5.0),
-              hintText: "Choose destination",
-              hintStyle: TextStyle(fontSize: 14, color: Colors.black26),
-              focusedBorder:
-              OutlineInputBorder(borderSide: BorderSide.none),
-              enabledBorder:
-              OutlineInputBorder(borderSide: BorderSide.none),
-              prefixIcon: Icon(
-                Icons.location_on,
-                color: Colors.red,
-                size: 16,
+        return InkWell(
+          onTap: () async {
+            mapController.isSourceDestination.value = false;
+
+            ModelSuggestion? modelSuggestion = await Get.to( SearchLocation(currentLocation:currentLocation));
+            if(modelSuggestion != null){
+
+              mapController.destinationTextEditingController.text = modelSuggestion.name??'';
+
+              destination = modelSuggestion.latLng;
+              destinationLocation = LocationData.fromMap({
+                "latitude": modelSuggestion.latLng.latitude,
+                "longitude": modelSuggestion.latLng.longitude
+              });
+              _markers.add(Marker(
+                  markerId: const MarkerId('destPin'),
+                  position: modelSuggestion.latLng,
+                  onTap: () {
+                    setState(() {
+                      currentlySelectedPin = destinationPinInfo;
+                      pinPillPosition = 0;
+                    });
+                  },
+                  icon: destinationIcon));
+
+              setState(() {});
+              polylineCoordinates.clear();
+            }
+          },
+          child: Container(
+            height: 45,
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.symmetric(horizontal: 10.0),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(4.0),
+                border: Border.all(color: Colors.black26)),
+            child: TextField(
+              controller:mapController.destinationTextEditingController,
+              focusNode: fieldFocusNode,
+              textAlignVertical: TextAlignVertical.center,
+              maxLines: 1,
+              enabled: false,
+              onTap: () {
+                suggestionList.clear();
+              },
+              onChanged: (value) {
+                fetchSuggestions(value);
+              },
+              style:AppTextStyle.textStyleRegular12,
+              decoration: const InputDecoration(
+                isCollapsed: true,
+                // contentPadding: EdgeInsets.only(left: 5.0),
+                hintText: "Choose destination",
+                hintStyle: TextStyle(fontSize: 14, color: Colors.black26),
+                focusedBorder:
+                OutlineInputBorder(borderSide: BorderSide.none),
+                enabledBorder:
+                OutlineInputBorder(borderSide: BorderSide.none),
+                prefixIcon: Icon(
+                  Icons.location_on,
+                  color: Colors.red,
+                  size: 16,
+                ),
               ),
             ),
           ),
@@ -459,9 +668,7 @@ class MapPageState extends State<MapPage> {
   }
 
   void updatePinOnMap() async {
-    // create a new CameraPosition instance
-    // every time the location changes, so the camera
-    // follows the pin as it moves with an animation
+
     CameraPosition cPosition = CameraPosition(
       zoom: CAMERA_ZOOM,
       tilt: CAMERA_TILT,
@@ -469,9 +676,9 @@ class MapPageState extends State<MapPage> {
       target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
     );
     final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(cPosition));
-    // do this inside the setState() so Flutter gets notified
-    // that a widget update is due
+
+    // controller.animateCamera(CameraUpdate.newCameraPosition(cPosition));
+
     setState(() {
       // updated position
       var pinPosition =
