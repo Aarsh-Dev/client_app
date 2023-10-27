@@ -47,6 +47,7 @@ dependencies:
   location: ^5.0.3
   dotted_border: ^2.1.0
   flutter_launcher_icons: ^0.13.0
+  location_geocoder: ^1.0.5
 
 
 dev_dependencies:

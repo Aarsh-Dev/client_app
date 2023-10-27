@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:location_platform_interface/location_platform_interface.dart';
+import 'package:location/location.dart';
+import 'package:location_geocoder/location_geocoder.dart';
 
 class SearchLocation extends StatefulWidget {
   final LocationData currentLocation;
@@ -80,60 +81,91 @@ class _SearchLocationState extends State<SearchLocation> {
                         : const SizedBox.shrink())),
                 style: AppTextStyle.textStyleRegular14),
           )),
-      body: ListView.separated(
-        shrinkWrap: true,
-        padding: const EdgeInsets.symmetric(vertical: 14.0,horizontal: 12.0),
-        itemCount: suggestionList.length ,
-        itemBuilder: (context, index) {
-        return InkWell(
-          onTap: (){
-            Get.back(result:suggestionList[index]);
-          },
-          child: Container(
-            padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.0),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          controller.isSourceDestination.value ? const SizedBox(
+            height: 30.0,
+          ):const SizedBox.shrink(),
+          controller.isSourceDestination.value ?
+          InkWell(
+            onTap: () async {
+              final LocatitonGeocoder geocoder = LocatitonGeocoder(apiKey);
+              var address = await geocoder.findAddressesFromCoordinates(Coordinates(widget.currentLocation.latitude,widget.currentLocation.longitude));
+               Get.back(result:ModelSuggestion("",address[1].addressLine??"", address[1].featureName??"", address[1].addressLine??"",LatLng(address[1].coordinates.latitude!,address[1].coordinates.longitude!)));
+            },
+            child: Material(
+              type: MaterialType.canvas,
+              child: Container(
+                width: Get.width,
+                margin: const EdgeInsets.symmetric(horizontal: 12.0),
+                padding: const EdgeInsets.symmetric(vertical:14.0),
+                decoration: BoxDecoration(
+                  color: AppColor.themeColor,
+                  borderRadius: BorderRadius.circular(5.0)
+                ),
+                child: Center(child: Text("Get Your Current Location",style: AppTextStyle.textStyleBold12.copyWith(color: Colors.white),)),
+              ),
             ),
-            child: Row(
-              children: [
-                Column(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.location_on_outlined,color: Colors.black,),
-                    Text(calculateDistance(widget.currentLocation.latitude,widget.currentLocation.longitude,suggestionList[index].latLng.latitude,suggestionList[index].latLng.longitude),textAlign: TextAlign.center,style: AppTextStyle.textStyleRegular10,)
-                  ],
-                ),
-                SizedBox(
-                  width: 20.0,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: Text(suggestionList[index].name??'',style: AppTextStyle.textStyleBold12,),
-                      ),
+          ): const SizedBox.shrink(),
+          Expanded(
+            child: ListView.separated(
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(vertical: 14.0,horizontal: 12.0),
+              itemCount: suggestionList.length ,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: (){
+                    Get.back(result:suggestionList[index]);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Column(
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.location_on_outlined,color: Colors.black,),
+                            Text(calculateDistance(widget.currentLocation.latitude,widget.currentLocation.longitude,suggestionList[index].latLng.latitude,suggestionList[index].latLng.longitude),textAlign: TextAlign.center,style: AppTextStyle.textStyleRegular10,)
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 20.0,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 4),
+                                child: Text(suggestionList[index].name,style: AppTextStyle.textStyleBold12,),
+                              ),
 
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 4),
-                        child: Text(suggestionList[index].fullAddress??'',style: AppTextStyle.textStyleRegular11,),
-                      ),
-                    ],
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 4),
+                                child: Text(suggestionList[index].fullAddress,style: AppTextStyle.textStyleRegular11,),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
+                );
+              }, separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(
+                height: 14.0,
+              );
+            },),
           ),
-        );
-      }, separatorBuilder: (BuildContext context, int index) {
-          return SizedBox(
-            height: 14.0,
-          );
-      },),
+        ],
+      ),
     );
   }
 

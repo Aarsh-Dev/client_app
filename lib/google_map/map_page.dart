@@ -98,13 +98,13 @@ class MapPageState extends State<MapPage> {
   void setSourceAndDestinationIcons() async {
     BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(devicePixelRatio: 2.0),
-        'assets/driving_pin.png')
+        'assets/png/driving_pin.png')
         .then((onValue) {
       sourceIcon = onValue;
     });
 
     BitmapDescriptor.fromAssetImage(const ImageConfiguration(devicePixelRatio: 2.0),
-        'assets/destination_map_marker.png')
+        'assets/png/destination_map_marker.png')
         .then((onValue) {
       destinationIcon = onValue;
     });
@@ -204,15 +204,17 @@ class MapPageState extends State<MapPage> {
         ModelSuggestion? modelSuggestion = await Get.to( SearchLocation(currentLocation:currentLocation));
 
         if(modelSuggestion != null){
+
           mapController.yourLocationTextEditingController.text = modelSuggestion.name;
           sourceLocation = modelSuggestion.latLng;
 
           SOURCE_LOCATION =  LatLng(modelSuggestion.latLng.latitude,modelSuggestion.latLng.longitude);
 
-          // currentLocation=LocationData.fromMap({
-          //   "latitude": modelSuggestion.latLng.latitude,
-          //   "longitude": modelSuggestion.latLng.longitude,
-          // });
+          // the trick is to remove the marker (by id)
+          // and add it again at the updated location
+          // _markers.removeWhere((m) => m.markerId.value == 'sourcePin');
+          //
+          // _markers.remove(_markers.firstWhere((Marker marker) => marker.markerId.value == 'sourcePin'));
 
           _markers.add(Marker(
               markerId: const MarkerId('sourcePin'),
@@ -271,7 +273,6 @@ class MapPageState extends State<MapPage> {
   Widget widgetDestinationLocation(){
     return InkWell(
       onTap: () async {
-
         mapController.searchTextEditingController.clear();
         mapController.isSourceDestination.value = false;
         mapController.isShowCancelIcon.value = false;
@@ -285,10 +286,11 @@ class MapPageState extends State<MapPage> {
 
           DEST_LOCATION =  LatLng(modelSuggestion.latLng.latitude,modelSuggestion.latLng.longitude);
 
-          destinationLocation = LocationData.fromMap({
-            "latitude": modelSuggestion.latLng.latitude,
-            "longitude": modelSuggestion.latLng.longitude
-          });
+          // destinationLocation = LocationData.fromMap({
+          //   "latitude": modelSuggestion.latLng.latitude,
+          //   "longitude": modelSuggestion.latLng.longitude
+          // });
+
           _markers.add(Marker(
               markerId: const MarkerId('destPin'),
               position: modelSuggestion.latLng,
@@ -699,21 +701,22 @@ class MapPageState extends State<MapPage> {
       var pinPosition =
       LatLng(currentLocation.latitude!, currentLocation.longitude!);
 
-      sourcePinInfo?.location = pinPosition;
+      // sourcePinInfo?.location = pinPosition;
 
       // the trick is to remove the marker (by id)
       // and add it again at the updated location
-      _markers.removeWhere((m) => m.markerId.value == 'sourcePin');
-      _markers.add(Marker(
-          markerId: const MarkerId('sourcePin'),
-          onTap: () {
-            setState(() {
-              currentlySelectedPin = sourcePinInfo!;
-              pinPillPosition = 0;
-            });
-          },
-          position: pinPosition, // updated position
-          icon: sourceIcon));
+
+      // _markers.removeWhere((m) => m.markerId.value == 'sourcePin');
+      // _markers.add(Marker(
+      //     markerId: const MarkerId('sourcePin'),
+      //     onTap: () {
+      //       setState(() {
+      //         currentlySelectedPin = sourcePinInfo!;
+      //         pinPillPosition = 0;
+      //       });
+      //     },
+      //     position: pinPosition, // updated position
+      //     icon: sourceIcon));
     });
   }
 

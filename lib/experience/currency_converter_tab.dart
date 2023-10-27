@@ -5,8 +5,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CurrencyTab extends StatefulWidget {
-  static const String route = '/';
+class CurrencyTab extends StatefulWidget{
 
   const CurrencyTab({super.key});
 
@@ -78,11 +77,11 @@ class _HomeScreenState extends State<CurrencyTab> {
                                     if(controller.selectedFromCurrency.value == "IDR"){
                                       controller.inrTextEditController.text= controller.convertAnyToAny(
                                           value,
-                                          controller.selectedFromTextEditController.text,
+                                          controller.selectedFromCurrency.value,
                                           "INR");
                                       controller.usdTextEditController.text= controller.convertAnyToAny(
                                           value,
-                                          controller.selectedFromTextEditController.text,
+                                          controller.selectedFromCurrency.value,
                                           "USD");
                                       setState(() {
 
@@ -90,11 +89,11 @@ class _HomeScreenState extends State<CurrencyTab> {
                                     }else if(controller.selectedFromCurrency.value == "INR"){
                                       controller.idrTextEditController.text= controller.convertAnyToAny(
                                           value,
-                                          controller.selectedFromTextEditController.text,
+                                          controller.selectedFromCurrency.value,
                                           "IDR");
-                                      controller.idrTextEditController.text= controller.convertAnyToAny(
+                                      controller.usdTextEditController.text= controller.convertAnyToAny(
                                           value,
-                                          controller.selectedFromTextEditController.text,
+                                          controller.selectedFromCurrency.value,
                                           "USD");
                                       setState(() {
 
@@ -103,11 +102,11 @@ class _HomeScreenState extends State<CurrencyTab> {
                                     }else if(controller.selectedFromCurrency.value == "USD"){
                                       controller.idrTextEditController.text= controller.convertAnyToAny(
                                           value,
-                                          controller.selectedFromTextEditController.text,
+                                          controller.selectedFromCurrency.value,
                                           "IDR");
                                       controller.inrTextEditController.text= controller.convertAnyToAny(
                                           value,
-                                          controller.selectedFromTextEditController.text,
+                                          controller.selectedFromCurrency.value,
                                           "INR");
                                       setState(() {
 
@@ -155,7 +154,9 @@ class _HomeScreenState extends State<CurrencyTab> {
                         //     //   onPressed: () {
                         //         controller.swapFromAndTo();
                         //     //     controller.selectedFromTextEditController.clear();
-                        //     //     controller.selectedToTextEditController.clear();
+                        //     //     controller.selectedToTex
+                        //
+                        //     tEditController.clear();
                         //     //   },
                         //     //   icon: const Icon(Icons.swap_vert),
                         //     // ),
@@ -297,8 +298,6 @@ class _HomeScreenState extends State<CurrencyTab> {
     );
   }
 
-
-
   Widget widgetCurrencyTypeDropDown(){
     return DropdownButtonFormField2(
       decoration: const InputDecoration(
@@ -326,6 +325,10 @@ class _HomeScreenState extends State<CurrencyTab> {
       },
       onChanged: (newValue) {
         controller.selectedFromCurrency.value = newValue!;
+        controller.selectedFromTextEditController.clear();
+        controller.idrTextEditController.clear();
+        controller.inrTextEditController.clear();
+        controller.usdTextEditController.clear();
       },
       menuItemStyleData: const MenuItemStyleData(
         height: 35,

@@ -2,7 +2,7 @@ import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/constant/show_dialog.dart';
 import 'package:client_app/controller/home_controller.dart';
-import 'package:client_app/home/home_bottom_tab/chart_tab.dart';
+import 'package:client_app/home/home_bottom_tab/chat_tab.dart';
 import 'package:client_app/home/home_bottom_tab/helpline_tab.dart';
 import 'package:client_app/home/home_bottom_tab/home_tab.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class _HomeState extends State<Home>  {
  List<Widget> listOfTab = [
   const HomeTab(),
   const HelpLineTab(),
-  const ChartTab(),
+  const ChatTab(),
  ];
 
  @override

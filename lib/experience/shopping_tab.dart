@@ -18,7 +18,7 @@ class _ShoppingTabState extends State<ShoppingTab> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10.0),
       child:widgetShoppingList(),
     );
   }
@@ -78,7 +78,6 @@ class _ShoppingTabState extends State<ShoppingTab> {
       return Container(width: Get.width,color: Colors.grey.withOpacity(0.1),height: 1,margin: const EdgeInsets.only(bottom: 16),);
     });
   }
-
 
   Widget widgetGeneratePromoButton(){
     return Material(

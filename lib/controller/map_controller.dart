@@ -13,7 +13,6 @@ class MapController extends GetxController{
 
   RxBool isSearch = false.obs;
   RxBool isShowCancelIcon = false.obs;
-
   RxBool isSourceDestination = false.obs;
 
 

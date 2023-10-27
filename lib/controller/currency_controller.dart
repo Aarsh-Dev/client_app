@@ -146,12 +146,6 @@ class CurrencyController extends GetxController{
     selectedToCurrency.value = temp;
   }
 
-  swapConvertCurrency(){
-    // for(int i =0;i<currencyTypeList.length;i++){
-    //   if()
-    // }
-  }
-
 
   String convertAnyToAny(String amount, String fromCurrency, String toCurrency) {
     if(exchangeRates.isEmpty || amount.isEmpty){

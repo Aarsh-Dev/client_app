@@ -18,7 +18,7 @@ class _NightLifeTabState extends State<NightLifeTab> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10.0),
       child:widgetNightsLifeList(),
     );
   }

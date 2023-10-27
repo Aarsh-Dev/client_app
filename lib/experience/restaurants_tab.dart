@@ -30,7 +30,6 @@ class _RestaurantsTabState extends State<RestaurantsTab>
     // TODO: implement initState
     super.initState();
     tabController = TabController(length: 5, vsync: this);
-    controller.getMealsType();
   }
 
   @override
@@ -38,7 +37,7 @@ class _RestaurantsTabState extends State<RestaurantsTab>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Divider(),
+        const Divider(),
         widgetTab(),
         const SizedBox(
           height: 10.0,
@@ -166,45 +165,6 @@ class _RestaurantsTabState extends State<RestaurantsTab>
     );
   }
 
-  //Todo Lunch Meal Type
-  Widget lunchMealTypeDropDown(
-      TextEditingController mealTypeController, String hint) {
-    return Obx(() => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: AppColor.hintColor, width: 1)),
-        child: DropdownButton<dynamic>(
-          hint: Text(
-            mealTypeController.text.isEmpty ? hint : mealTypeController.text,
-            style: mealTypeController.text.isEmpty
-                ? AppTextStyle.textStyleRegular12
-                    .copyWith(color: AppColor.hintColor)
-                : AppTextStyle.textStyleRegular12,
-          ),
-          icon: const Icon(Icons.keyboard_arrow_down_rounded),
-          iconSize: 24,
-          elevation: 16,
-          style: const TextStyle(color: Colors.black),
-          underline: const SizedBox.shrink(),
-          onChanged: (value) {
-            mealTypeController.text = value['MealType'].toString();
-            setState(() {});
-          },
-          isExpanded: true,
-          borderRadius: BorderRadius.circular(10),
-          items: controller.lunchMealTypeList
-              .map<DropdownMenuItem<dynamic>>((dynamic value) {
-            return DropdownMenuItem<dynamic>(
-              value: value,
-              child: Text(
-                value['MealType'].toString(),
-                style: AppTextStyle.textStyleRegular12,
-              ),
-            );
-          }).toList(),
-        )));
-  }
 
   Widget widgetGeneratePromoButton() {
     return Material(

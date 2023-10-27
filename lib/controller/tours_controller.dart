@@ -8,21 +8,20 @@ class ToursController extends GetxController{
 
 
 
-  RxList<dynamic> toursList = <dynamic>[].obs;
-  RxList showActivityIndexList = [].obs;
-  RxList showOptionIndexList = [].obs;
 
 
   Rxn<int> optionalGroupValue = Rxn<int>();
-
   RxInt currentIndex = 0.obs;
 
 
   RxBool isToursLoading = false.obs;
 
-
-  RxList restaurantType = ["Indian", "Indonesia","Seafood"].obs;
+  RxList<dynamic> toursList = <dynamic>[].obs;
+  RxList showActivityIndexList = [].obs;
+  RxList showOptionIndexList = [].obs;
   RxList selectRestaurantType = [].obs;
+
+
 
   RxList<Tab> tabList = <Tab>[
     const Tab(child: Text("Description")),
@@ -40,7 +39,6 @@ class ToursController extends GetxController{
     '16-Nov-2023',
   ].obs;
 
-  RxString selectDate = "".obs;
 
 
 
