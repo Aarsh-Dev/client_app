@@ -32,7 +32,8 @@ class _ExperiencePageState extends State<ExperiencePage>  with SingleTickerProvi
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text("Experience"),
+        title: Text("Experience",style: AppTextStyle.appbarTextStyle.copyWith(color: Colors.white),),
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: AppColor.themeColor,
       ),
       body: Column(
@@ -63,6 +64,7 @@ class _ExperiencePageState extends State<ExperiencePage>  with SingleTickerProvi
       ),
       child: TabBar(
         controller: tabController,
+        tabAlignment: TabAlignment.start,
         indicatorColor: Colors.red,
         labelStyle:AppTextStyle.textStyleBold10.copyWith(color: Colors.black),
         labelColor: Colors.black,

@@ -64,6 +64,7 @@ class _RestaurantsTabState extends State<RestaurantsTab>
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: TabBar(
         controller: tabController,
+        tabAlignment: TabAlignment.start,
         indicatorColor: Colors.red,
         labelStyle: AppTextStyle.textStyleBold10.copyWith(color: Colors.black),
         labelColor: Colors.black,

@@ -19,7 +19,8 @@ class _DealsPageState extends State<DealsPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text("Deals"),
+        iconTheme: IconThemeData(color: Colors.white),
+        title: Text("Deals",style:  AppTextStyle.appbarTextStyle.copyWith(color: Colors.white),),
         backgroundColor: AppColor.themeColor,
       ),
       body: SingleChildScrollView(

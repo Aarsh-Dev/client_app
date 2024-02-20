@@ -98,6 +98,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
         labelStyle:AppTextStyle.textStyleBold10.copyWith(color: Colors.black),
         labelColor: Colors.black,
         isScrollable: true,
+        tabAlignment: TabAlignment.start,
         unselectedLabelStyle: AppTextStyle.textStyleBold10.copyWith(color: Colors.black),
         unselectedLabelColor:Colors.black,
         // labelPadding: EdgeInsets.symmetric(horizontal: 12.0),

@@ -21,49 +21,25 @@ class _MyBookingPageState extends State<MyBookingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         elevation: 0,
+        backgroundColor: AppColor.themeColor,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_rounded,
-            color: Colors.black,
+            color: Colors.white,
           ),
           onPressed: () {
             Get.back();
           },
         ),
-        centerTitle: true,
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(
-              Icons.edit,
-              color: Colors.orange,
-              size: 20,
-            ),
-            const SizedBox(
-              width: 4.0,
-            ),
-            Text(
-              "My Booking",
-              style:
-                  AppTextStyle.textStyleBold14.copyWith(color: Colors.orange),
-            ),
-          ],
+        centerTitle: false,
+        title: Text(
+          "My Booking",
+          style:
+          AppTextStyle.appbarTextStyle.copyWith(color: Colors.white),
         ),
-        actions: const [
-          CircleAvatar(
-              backgroundColor: Colors.lightBlueAccent,
-              radius: 15,
-              child: Icon(
-                Icons.search,
-                color: Colors.white,
-                size: 20,
-              )),
-          SizedBox(
-            width: 16.0,
-          ),
-        ],
+
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -37,7 +37,7 @@ class _MoreActivitiesPageState extends State<MoreActivitiesPage> {
             Get.back();
           },
         ),
-        title: const Text("More Activities"),
+        title: Text("More Activities",style:  AppTextStyle.appbarTextStyle.copyWith(color: Colors.white),),
         backgroundColor: AppColor.themeColor,
       ),
       body: Obx(()=>toursController.isToursLoading.value ? const CustomLoader():widgetTourList(),),
