@@ -45,6 +45,8 @@ class _SearchLocationState extends State<SearchLocation> {
                 maxLines: 1,
                 cursorColor: Colors.black,
                 onChanged: (value) {
+                  // fetchSuggestions(value,"hospital");
+                  // fetchSuggestions(value,"bank");
                   fetchSuggestions(value);
                   if (controller.searchTextEditingController.text.isNotEmpty) {
                     controller.isShowCancelIcon.value = true;
