@@ -2,10 +2,10 @@ import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/constant/assets_path.dart';
 import 'package:client_app/constant/method.dart';
-import 'package:client_app/controller/tours_controller.dart';
+import 'package:client_app/controller/more_activity_controller.dart';
 import 'package:client_app/home/deals_page.dart';
 import 'package:client_app/home/experience_page.dart';
-import 'package:client_app/home/more_activities_page.dart';
+import 'package:client_app/home/more_activities/tours_list.dart';
 import 'package:client_app/home/my_booking_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +20,7 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
 
-  ToursController toursController = Get.find();
+  MoreActivitiesController toursController = Get.find();
 
 
   late TabController tabController;
@@ -72,7 +72,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
             title: "More Activities",
           onTap: (){
               toursController.getToursSearch();
-              Get.to(const MoreActivitiesPage());
+              Get.to(const ToursList());
               // Get.to(const MoreActivitiesPage());
           }
         ),
@@ -107,7 +107,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin{
             Get.to(const MyBookingPage());
           }else if(value == 1){
             toursController.getToursSearch();
-            Get.to(const MoreActivitiesPage());
+            Get.to(const ToursList());
           }else if(value == 2){
             Get.to(const ExperiencePage());
           }else{

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 String apiKey="AIzaSyDLSoI_Kx2le7KxpiCM2nupGNP2I6yjN_8";
+String baseUrl="https://apitest.uandiholidays.net/api/Values/";
 
 RxBool isPromoLoading = false.obs;
 

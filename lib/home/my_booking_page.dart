@@ -1,7 +1,7 @@
 import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
-import 'package:client_app/controller/tours_controller.dart';
-import 'package:client_app/home/more_activities_page.dart';
+import 'package:client_app/controller/more_activity_controller.dart';
+import 'package:client_app/home/more_activities/tours_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +14,7 @@ class MyBookingPage extends StatefulWidget {
 
 class _MyBookingPageState extends State<MyBookingPage> {
 
-  ToursController toursController = Get.find();
+  MoreActivitiesController toursController = Get.find();
 
 
   @override
@@ -218,7 +218,7 @@ class _MyBookingPageState extends State<MyBookingPage> {
                         : InkWell(
                       onTap: (){
                         toursController.getToursSearch();
-                        Get.to(const MoreActivitiesPage());
+                        Get.to(const ToursList());
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),

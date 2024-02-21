@@ -1,6 +1,6 @@
 import 'package:client_app/constant/app_text_style.dart';
 import 'package:client_app/controller/currency_controller.dart';
-import 'package:client_app/widget/custom_loader.dart';
+import 'package:client_app/widget/loader/custom_loader.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

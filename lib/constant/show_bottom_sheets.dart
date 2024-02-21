@@ -1,6 +1,6 @@
 import 'package:client_app/constant/app_colors.dart';
 import 'package:client_app/constant/app_text_style.dart';
-import 'package:client_app/widget/custom_loader.dart';
+import 'package:client_app/widget/loader/custom_loader.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

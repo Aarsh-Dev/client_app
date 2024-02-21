@@ -48,6 +48,13 @@ dependencies:
   dotted_border: ^2.1.0
   flutter_launcher_icons: ^0.13.0
   location_geocoder: ^1.0.5
+  nb_utils: ^6.1.2
+  scroll_to_animate_tab: ^0.0.2+3
+  carousel_slider: ^4.2.1
+  shimmer: ^3.0.0
+  flutter_rating_bar: ^4.0.1
+  flutter_html: ^3.0.0-beta.2
+
 
 
 dev_dependencies:
