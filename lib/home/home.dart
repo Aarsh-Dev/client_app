@@ -46,7 +46,7 @@ class _HomeState extends State<Home>  {
         elevation: 0,
         backgroundColor: AppColor.themeColor,
         automaticallyImplyLeading: false,
-        title: const Text("Agent Logo"),
+        title: Text("Agent Logo",style: AppTextStyle.appbarTextStyle.copyWith(color: Colors.white),),
       ),
       body: Obx(()=>listOfTab.elementAt(controller.position.value),),
       bottomNavigationBar: Obx(()=>BottomNavigationBar(

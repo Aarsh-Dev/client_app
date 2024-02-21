@@ -25,6 +25,7 @@ class _TourDetailState extends State<TourDetail> {
       // backgroundColor: const Color(0xffF0F0F0),
       appBar: AppBar(
         backgroundColor: AppColor.themeColor,
+        iconTheme: IconThemeData(color: Colors.white),
         elevation: 0,
         centerTitle: true,
         title: Column(
@@ -84,6 +85,9 @@ class _TourDetailState extends State<TourDetail> {
               child: TabBar(
                   isScrollable: true,
                   indicatorColor: AppColor.whiteColor,
+                  tabAlignment: TabAlignment.start,
+                  labelStyle: AppTextStyle.textStyleRegular14.copyWith(color: Colors.white),
+                  unselectedLabelStyle: AppTextStyle.textStyleRegular14.copyWith(color: Colors.white60),
                   onTap: (index) {
                     controller.currentIndex.value = index;
                     // setState(() {});
@@ -102,7 +106,7 @@ class _TourDetailState extends State<TourDetail> {
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.white,
-        height: 55,
+        // height: 55,
         elevation: 10,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
